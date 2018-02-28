@@ -239,7 +239,7 @@ canvas {
     visibility: hidden;
   }
 
-  .temperature, .humdity, .pressure {
+  .temperature, .humidity, .pressure {
     width: 100%;
   }
 
