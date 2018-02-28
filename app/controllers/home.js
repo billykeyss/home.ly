@@ -1,20 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
+const update = express.Router();
+const Data = require('../models/data');
 
 module.exports = (app) => {
   app.use('/', router);
 };
 
 router.get('/', (req, res, next) => {
-  res.render('index', {
-    title: 'Generator-Express MVC'
-    // articles: articles
+  Data.getAllData().then(function(data) {
+    res.render('layout', {
+      title: 'Generator-Express MVC',
+      data: data.Items
+    });
   });
-  // db.Data.findAll().then((datapoints) => {
-  // });
 });
 
-router.post('/update', (req, res, next) => {
-  res.send('test');
-})
+router.post('/update', (req, res) => Data.addData(req, res));

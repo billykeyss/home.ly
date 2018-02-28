@@ -6,18 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <title>homely Analytics</title>
   <link rel="stylesheet" href="/css/style.css">
-
-
   <!-- Google Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Pacifico' rel='stylesheet' type='text/css'>
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
   <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"> {% if ENV_DEVELOPMENT %}
-  <script src="http://localhost:35729/livereload.js"></script>
-  {% endif %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 </head>
 
 <body>
@@ -28,14 +22,6 @@
         <a href="#">
           <i class="fa fa-line-chart"></i>Analytics</a>
       </li>
-      <!-- <li>
-        <a href="#">
-          <i class="fa fa-folder-open"></i>Reports</a>
-        <span class="notification">4</span></li>
-      <li>
-        <a href="#">
-          <i class="fa fa-wrench"></i>Settings</a>
-      </li> -->
     </ul>
   </aside>
   <div class="dashboard">

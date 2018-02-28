@@ -8,15 +8,7 @@ const config = {
     app: {
       name: 'homely-web'
     },
-    port: process.env.PORT || 3000, 
-    connConfig: {
-      host: 'homely-server-dev.mysql.database.azure.com',
-      user: 'myadmin@homely-server-dev',
-      password: 'password123!',
-      database: 'homely_db_dev',
-      port: 3306,
-      ssl: true
-    }
+    port: process.env.PORT || 3000
   },
 
   test: {
@@ -24,8 +16,7 @@ const config = {
     app: {
       name: 'homely-web'
     },
-    port: process.env.PORT || 3000,
-    db: 'mysql://localhost/homely-web-test'
+    port: process.env.PORT || 3000
   },
 
   production: {
@@ -33,8 +24,7 @@ const config = {
     app: {
       name: 'homely-web'
     },
-    port: process.env.PORT || 3000,
-    db: 'mysql://localhost/homely-web-production'
+    port: process.env.PORT || 3306
   }
 };
 

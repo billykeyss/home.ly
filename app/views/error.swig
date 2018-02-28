@@ -1,7 +1,22 @@
-{% extends 'layout.swig' %}
+<!doctype html>
+<html lang="en">
 
-{% block content %}
-  <h1>{{ message }}</h1>
-  <h2>{{ error.status }}</h2>
-  <pre>{{ error.stack }}</pre>
-{% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>homely Analytics</title>
+  <link rel="stylesheet" href="/css/error.css">
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Pacifico' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <h1>Looks like this page doesn't exist... yet</h1>
+  <section class="error-container">
+    <span>4</span>
+    <span><span class="screen-reader-text">0</span></span>
+    <span>4</span>
+  </section>
+</body>
+
+</html>
