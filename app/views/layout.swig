@@ -1,15 +1,75 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  <title>{{ title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>homely Analytics</title>
   <link rel="stylesheet" href="/css/style.css">
-  {% if ENV_DEVELOPMENT %}
-    <script src="http://localhost:35729/livereload.js"></script>
+
+
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Pacifico' rel='stylesheet' type='text/css'>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"> {% if ENV_DEVELOPMENT %}
+  <script src="http://localhost:35729/livereload.js"></script>
   {% endif %}
 </head>
+
 <body>
-  {% block content %}{% endblock %}
+  <aside>
+    <h1>home.ly</h1>
+    <ul>
+      <li class="active">
+        <a href="#">
+          <i class="fa fa-line-chart"></i>Analytics</a>
+      </li>
+      <!-- <li>
+        <a href="#">
+          <i class="fa fa-folder-open"></i>Reports</a>
+        <span class="notification">4</span></li>
+      <li>
+        <a href="#">
+          <i class="fa fa-wrench"></i>Settings</a>
+      </li> -->
+    </ul>
+  </aside>
+  <div class="dashboard">
+    <canvas id="myChart"></canvas>
+    <div class="row">
+      <div class="temperature">
+        <div class="info">
+          <span class="circle c-temperature">CURRENT</br>TEMPERATURE</span>
+          <p>This is the summary of the temperature in your home in the past 24 hours. Looks like its a little (cold/hot), might want to (turn up the heat/open a window)!</p>
+        </div>
+      </div>
+      <div class="humidity">
+        <div class="info">
+          <span class="circle c-humidity">CURRENT</br>HUMIDITY</span>
+          <p>This is the summary of the humidity in your home in the past 24 hours.</p>
+        </div>
+      </div>
+      <div class="pressure">
+        <div class="info">
+          <span class="circle c-pressure">CURRENT</br>PRESSURE</span>
+          <p>This is the summary of the pressure in your home in the past 24 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compiled and minified jQuery 2.1.3 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <!-- CDN for chart js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
+  <!-- Compiled and minified global js file -->
+  <script type="text/javascript" src="/js/main.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </body>
+
 </html>

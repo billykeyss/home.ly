@@ -4,9 +4,9 @@
 module.exports = (sequelize, DataTypes) => {
 
   const Data = sequelize.define('Data', {
-    title: DataTypes.STRING,
-    url: DataTypes.STRING,
-    text: DataTypes.STRING
+    pi_id: DataTypes.STRING,
+    temperature: DataTypes.STRING,
+    time: DataTypes.STRING
   }, {
     classMethods: {
       associate: (models) => {
