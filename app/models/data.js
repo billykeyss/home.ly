@@ -33,6 +33,10 @@ module.exports = {
         var disabled = true;
         var data = req.body;
 
+        if(req.body.password !== "password123!") {
+          res.status(404).send("Incorrect Password");
+          return;
+        };
 
         if ((data.hasOwnProperty('temperature') && typeof data['temperature'] === 'string' && data['temperature'].length > 0) &&
                 (data.hasOwnProperty('humidity') && typeof data['humidity'] === 'string' && data['humidity'].length > 0) &&
