@@ -34,10 +34,10 @@ module.exports = {
         var data = req.body;
 
 
-        if ((data.hasOwnProperty('temperature') && typeof data['temperature'] === 'string' && data['temperature'].length > 0) ||
-                (data.hasOwnProperty('humidity') && typeof data['humidity'] === 'string' && data['humidity'].length > 0) ||
-                (data.hasOwnProperty('pi_ID') && typeof data['pi_ID'] === 'string' && data['pi_ID'].length > 0) ||
-                (data.hasOwnProperty('pressure') && typeof data['pressure'] === 'string' && data['pressure'].length > 0) ||
+        if ((data.hasOwnProperty('temperature') && typeof data['temperature'] === 'string' && data['temperature'].length > 0) &&
+                (data.hasOwnProperty('humidity') && typeof data['humidity'] === 'string' && data['humidity'].length > 0) &&
+                (data.hasOwnProperty('pi_ID') && typeof data['pi_ID'] === 'string' && data['pi_ID'].length > 0) &&
+                (data.hasOwnProperty('pressure') && typeof data['pressure'] === 'string' && data['pressure'].length > 0) &&
                 (data.hasOwnProperty('date_time') && typeof data['date_time'] === 'string' && data['date_time'].length > 0)) {
             var params = {
                 TableName: process.env.TABLE_NAME,
