@@ -152,10 +152,8 @@ canvas {
 }
 .row p {
   float: left;
-  margin: -110px 150px;
   color: #FFF;
   font-weight: 400;
-  width: 60%;
   font-size: 14px;
   font-size: 0.875rem;
 }
@@ -183,6 +181,7 @@ canvas {
 
 .info {
   padding: 25px;
+  height: 200px;
 }
 
 .circle {
@@ -234,7 +233,7 @@ canvas {
   font-size: 1.25rem;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 900px) {
   aside {
     visibility: hidden;
   }
@@ -284,4 +283,19 @@ canvas {
   .fa.fa-bars {
     visibility: visible;
   }
+}
+
+
+
+
+.wrapper {
+    display: flex;
+    box-sizing: border-box;
+}
+
+.wrapper > div {
+    box-sizing: border-box;
+    width: calc(50% - 32px);
+    float: left;
+    margin: 0 16px;
 }

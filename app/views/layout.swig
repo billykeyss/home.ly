@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <script>
+    var data = "{{data}}";
+  </script>
 </head>
 
 <body>
@@ -29,20 +32,38 @@
     <div class="row">
       <div class="temperature">
         <div class="info">
-          <span class="circle c-temperature">CURRENT</br>TEMPERATURE</span>
-          <p>This is the summary of the temperature in your home in the past 24 hours. Looks like its a little (cold/hot), might want to (turn up the heat/open a window)!</p>
+          <div class="wrapper">
+            <div>
+              <span class="circle c-temperature">CURRENT</br>TEMP</span>
+            </div>
+            <div>
+              <p>This is the summary of the temperature in your home in the past 24 hours. Looks like its a little (cold/hot), might want to (turn up the heat/open a window)!</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="humidity">
         <div class="info">
-          <span class="circle c-humidity">CURRENT</br>HUMIDITY</span>
-          <p>This is the summary of the humidity in your home in the past 24 hours.</p>
+          <div class="wrapper">
+            <div>
+              <span class="circle c-humidity">CURRENT</br>HUMIDITY</span>
+            </div>
+            <div>
+              <p>This is the summary of the humidity in your home in the past 24 hours.</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pressure">
         <div class="info">
-          <span class="circle c-pressure">CURRENT</br>PRESSURE</span>
-          <p>This is the summary of the pressure in your home in the past 24 hours.</p>
+          <div class="wrapper">
+            <div>
+              <span class="circle c-pressure">CURRENT</br>PRESSURE</span>
+            </div>
+            <div>
+              <p>This is the summary of the pressure in your home in the past 24 hours.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

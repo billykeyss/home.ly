@@ -34,7 +34,13 @@ module.exports = {
     console.log(req.body);
     var params = {
       TableName: process.env.TABLE_NAME,
-      Item: req.body
+      Item: {
+        temperature: req.body.temperature,
+        humidity: req.body.humidity,
+        pi_ID: req.body.pi_ID,
+        pressure: req.body.pressure,
+        date_time: req.body.date_time
+      }
     };
     if (!req.body.add) {
       res.send("data received but not added")

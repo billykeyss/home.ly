@@ -10,8 +10,7 @@ module.exports = (app) => {
 router.get('/', (req, res, next) => {
   Data.getAllData().then(function(data) {
     res.render('layout', {
-      title: 'Generator-Express MVC',
-      data: data.Items
+      data: JSON.stringify(data.Items)
     });
   });
 });
