@@ -30,7 +30,7 @@
   <div class="dashboard">
     <canvas id="myChart"></canvas>
     <div class="row">
-      <div class="temperature">
+      <div class="temperature" id="">
         <div class="info">
           <div class="wrapper">
             <div>
@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div class="humidity">
+      <div class="humidity" id="">
         <div class="info">
           <div class="wrapper">
             <div>
@@ -54,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div class="pressure">
+      <div class="pressure" id="">
         <div class="info">
           <div class="wrapper">
             <div>
