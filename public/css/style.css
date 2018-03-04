@@ -4,7 +4,7 @@
 }
 
 html, body {
-  background: #2C3E50;
+  background: #50C878;
   font-family: "Source Sans Pro", sans-serif;
   -webkit-font-smoothing: antialiased;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
@@ -63,42 +63,31 @@ aside a {
   width: 80%;
   height: 100vh;
   float: right;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
 }
 
 canvas {
-  margin: -50px -5px;
+  position: absolute;
+  bottom: 0;
+  margin: -5px;
   width: 101% !important;
 }
 
-.row {
-  width: 100%;
-  margin-top: 40px;
-}
-.row p {
-  float: left;
-  /* color: #FFF; */
-  font-weight: 400;
-  font-size: 14px;
-  font-size: 0.875rem;
-}
-
-.temperature {
+.temperature-grid {
   background: #29AB87;
-  width: 50%;
   height: auto;
   float: left;
 }
 
-.humidity {
+.humidity-grid {
   background: #00A572;
-  width: 50%;
   height: auto;
   float: right;
 }
 
-.pressure {
+.pressure-grid {
   background: #00A572;
-  width: 50%;
   height: auto;
   float: left;
 }
@@ -261,4 +250,14 @@ canvas {
 /* Gradient 8 */
 #g8 {
   background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+#chartContainer {
+  position: relative;
 }

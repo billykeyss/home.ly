@@ -28,9 +28,11 @@
     </ul>
   </aside>
   <div class="dashboard">
-    <canvas id="myChart"></canvas>
-    <div class="row">
-      <div class="temperature" id="">
+    <div id="chartContainer">
+      <canvas id="myChart"></canvas>
+    </div>
+    <div class="grid-container">
+      <div class="temperature-grid" id="">
         <div class="info">
           <div class="wrapper">
             <div>
@@ -42,7 +44,7 @@
           </div>
         </div>
       </div>
-      <div class="humidity" id="">
+      <div class="humidity-grid" id="">
         <div class="info">
           <div class="wrapper">
             <div>
@@ -54,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div class="pressure" id="">
+      <div class="pressure-grid" id="">
         <div class="info">
           <div class="wrapper">
             <div>
