@@ -18,8 +18,66 @@ header {
   height: 0;
 }
 
+.account {
+  margin: 20px 150px;
+}
+.account img {
+  float: right;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.account p {
+  float: right;
+  color: #FFF;
+  margin: 7px -160px;
+  font-size: 15px;
+}
+
+.account-box:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #1f2c39;
+  margin: -7px 34px;
+  float: right;
+}
+
+.account-box {
+  background: #1f2c39;
+  border-radius: 3px;
+  width: 80%;
+  height: 300px;
+  border: none;
+  margin: 50px 60px;
+  position: absolute;
+}
+.account-box h3 {
+  text-align: center;
+  color: #FFF;
+  padding: 20px;
+  font-weight: 300;
+  border-bottom: 1px solid #233140;
+}
+.account-box li {
+  list-style: none;
+  padding: 15px;
+  width: 38.8%;
+  float: left;
+  transition: all ease 0.4s;
+}
+.account-box li:hover {
+  background: #233140;
+}
+.account-box a {
+  text-decoration: none;
+  color: #FFF;
+}
+
 aside {
-  background: #2E8B57;
+  background: #233140;
   width: 20%;
   height: 100vh;
   position: fixed;
@@ -42,7 +100,7 @@ aside li {
   transition: all ease 0.4s;
 }
 aside li.active {
-  background: #00A572;
+  background: #1a252f;
 }
 aside li:hover {
   background: #1a252f;
@@ -58,8 +116,26 @@ aside a {
   font-size: 0.78125rem;
 }
 
+.notification {
+  background: #2980B9;
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+  color: #FFF;
+  font-weight: 400;
+  float: right;
+  margin-top: -2px;
+  margin-right: 10px;
+  font-size: 14px;
+  font-size: 0.875rem;
+}
+
 .dashboard {
-  background: #50C878;
+  background: #2C3E50;
   width: 80%;
   height: 100vh;
   float: right;
@@ -72,32 +148,32 @@ canvas {
 
 .row {
   width: 100%;
-  margin-top: 40px;
+  margin-top: 41px;
 }
 .row p {
   float: left;
-  /* color: #FFF; */
+  color: #FFF;
   font-weight: 400;
   font-size: 14px;
   font-size: 0.875rem;
 }
 
 .temperature {
-  background: #29AB87;
+  background: #283949;
   width: 50%;
   height: auto;
   float: left;
 }
 
 .humidity {
-  background: #00A572;
+  background: #233140;
   width: 50%;
   height: auto;
   float: right;
 }
 
 .pressure {
-  background: #00A572;
+  background: #233140;
   width: 50%;
   height: auto;
   float: left;
@@ -116,6 +192,7 @@ canvas {
   vertical-align: middle;
   border-radius: 50%;
   border: 10px solid #273646;
+  color: #FFF;
 }
 
 .c-temperature {
@@ -133,7 +210,7 @@ canvas {
 
 .c-pressure {
   background: transparent;
-  border-top-color: #36e8c3;
+  border-top-color: #950372;
   border-right-color: #36e8c3;
 }
 
@@ -221,44 +298,4 @@ canvas {
     width: calc(50% - 32px);
     float: left;
     margin: 0 16px;
-}
-
-/* Gradient 1 */
-#g1 {
-  background: linear-gradient(90deg, #69b7eb, #b3dbd3, #f4d6db);
-}
-
-/* Gradient 2 */
-#g2 {
-  background: linear-gradient(90deg, #cfecd0, #29AB87);
-}
-
-/* Gradient 3 */
-#g3 {
-  background: linear-gradient(90deg, #f598a8, #f6edb2);
-}
-
-/* Gradient 4 */
-#g4 {
-  background: linear-gradient(90deg, #ee5c87, #f1a4b5, #d587b3);
-}
-
-/* Gradient 5 */
-#g5 {
-  background: linear-gradient(90deg, #b9deed, #efefef);
-}
-
-/* Gradient 6 */
-#g6 {
-  background: linear-gradient(90deg, #98FB98, #d3ffe8);
-}
-
-/* Gradient 7 */
-#g7 {
-  background: linear-gradient(90deg, #faf0cd, #fab397);
-}
-
-/* Gradient 8 */
-#g8 {
-  background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);
 }
