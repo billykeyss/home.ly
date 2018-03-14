@@ -23,18 +23,18 @@ var printError = function (err) {
   console.log(err.message);
 };
 
-var client = EventHubClient.fromConnectionString(connectionString);
-client.open()
-    .then(client.getPartitionIds.bind(client))
-    .then(function (partitionIds) {
-        return partitionIds.map(function (partitionId) {
-            return client.createReceiver('$Default', partitionId, { 'startAfterTime' : Date.now()}).then(function(receiver) {
-                console.log('Created partition receiver: ' + partitionId)
-                receiver.on('errorReceived', printError);
-                if(!process.env.disabled) {
-                  receiver.on('message', Data.addDataDirectDB);
-                }
-            });
-        });
-    })
-    .catch(printError);
+// var client = EventHubClient.fromConnectionString(connectionString);
+// client.open()
+//     .then(client.getPartitionIds.bind(client))
+//     .then(function (partitionIds) {
+//         return partitionIds.map(function (partitionId) {
+//             return client.createReceiver('$Default', partitionId, { 'startAfterTime' : Date.now()}).then(function(receiver) {
+//                 console.log('Created partition receiver: ' + partitionId)
+//                 receiver.on('errorReceived', printError);
+//                 if(!process.env.disabled) {
+//                   receiver.on('message', Data.addDataDirectDB);
+//                 }
+//             });
+//         });
+//     })
+//     .catch(printError);
