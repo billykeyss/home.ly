@@ -38,11 +38,11 @@ module.exports = {
 			var params = {
 				TableName: process.env.TABLE_NAME,
 				Item: {
-					temperature: req.body.temperature,
-					humidity: req.body.humidity,
+					temperature: Number(req.body.temperature),
+					humidity: Number(req.body.humidity),
 					pi_id: req.body.pi_ID,
-					pressure: req.body.pressure,
-					date_time: req.body.date_time
+					pressure: Number(req.body.pressure),
+					date_time: Number(req.body.date_time)
 				}
 			};
 			docClient.put(params, function(err, data) {
