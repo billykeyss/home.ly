@@ -33,9 +33,9 @@ router.get('/', (req, res, next) => {
       });
     }
 
-    for (const [key, value] of Object.entries(chartDataObject)) {
-      nodeArray.push(key);
-    }
+    // for (const [key, value] of Object.entries(chartDataObject)) {
+    //   nodeArray.push(key);
+    // }
 
     res.render('layout', {
       data: JSON.stringify(chartDataObject),
