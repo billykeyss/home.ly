@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const config = require('./config/config');
 const Data = require('./app/models/data');
-var EventHubClient = require('azure-event-hubs').Client;
+// var EventHubClient = require('azure-event-hubs').Client;
 var connectionString = process.env.CONN_STRING;
 
 const app = express();
