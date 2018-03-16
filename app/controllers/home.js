@@ -48,3 +48,5 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/update', (req, res) => Data.addData(req, res));
+
+router.post('/update/snore', (req,res) => Data.addSnoringData(req,res));
