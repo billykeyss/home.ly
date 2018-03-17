@@ -112,5 +112,31 @@ module.exports = {
 		} else {
 			res.status(400).send("Invalid Post Parameters");
 		}
+	},
+
+	addSnoreDataDirectDB: function(data) {
+		var data = req.body;
+
+		if ((data.hasOwnProperty('pi_ID') && typeof data['pi_ID'] === 'string' && data['pi_ID'].length > 0) &&
+			(data.hasOwnProperty('date_time') && typeof data['date_time'] === 'number') &&
+			(data.hasOwnProperty('decibels') && typeof data['decibels'] === 'number') {
+			var params = {
+				TableName: process.env.TABLE_NAME_SNORING,
+				Item: {
+					pi_id: req.body.pi_ID,
+					decibels: Number(req.body.decibels),
+					date_time: Number(req.body.date_time)
+				}
+			};
+			docClient.put(params, function(err, data) {
+				if (err) {
+					console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+				} else {
+					res.send("Item Add Succeeded: " + data);
+				}
+			});
+		} else {
+			res.status(400).send("Invalid Post Parameters");
+		}
 	}
 };
