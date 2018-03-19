@@ -25,26 +25,26 @@ var printError = function(err) {
 	console.log(err.message);
 };
 
+
 var client = EventHubClient.fromConnectionString(connectionString);
 client.open()
-	.then(client.getPartitionIds.bind(client))
-	.then(function(partitionIds) {
-			return partitionIds.map(function(partitionId) {
-					return client.createReceiver('$Default', partitionId, {
-						'startAfterTime': Date.now()
-					}).then(function(receiver) {
-							console.log('Created partition receiver: ' + partitionId)
-							receiver.on('errorReceived', printError);
-							if (!process.env.disabled) {
-								// receiver.on('message', Data.addDataDirectDB);
-								receiver.on('message', function(data) {
-                  if(data.type == 'snore') {
-                    Data.addSnoreDataDirectDB(data);
-                  } else if (data.type == 'home'){
-                    Data.addDataDirectDB(data);
-									}
-								}
-							});
-					});
-			})
-		.catch(printError);
+    .then(client.getPartitionIds.bind(client))
+    .then(function (partitionIds) {
+        return partitionIds.map(function (partitionId) {
+            return client.createReceiver('$Default', partitionId, { 'startAfterTime' : Date.now()}).then(function(receiver) {
+                console.log('Created partition receiver: ' + partitionId)
+                receiver.on('errorReceived', printError);
+                // receiver.on('message', printMessage);
+								receiver.on('message', function(message) {
+									var data = message.body;
+									console.log(data);
+									if(data.type == 'snore') {
+										Data.addSnoreDataDirectDB(data);
+									} else if (data.type == 'home') {
+										Data.addDataDirectDB(data);
+									};
+								})
+            });
+        });
+    })
+    .catch(printError);
