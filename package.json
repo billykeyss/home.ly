@@ -19,6 +19,7 @@
     "dotenv": "^5.0.1",
     "express": "^4.13.3",
     "glob": "^6.0.4",
+    "lodash": "^4.17.5",
     "method-override": "^2.3.0",
     "moment": "^2.21.0",
     "morgan": "^1.6.1",

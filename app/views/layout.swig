@@ -17,12 +17,18 @@
     }
 
     var data = "{{data}}";
+    var lastDayData = "{{lastDayData}}";
+    var lastWeekData = "{{lastWeekData}}";
+    var lastMonthData = "{{lastMonthData}}";
     var node = "{{nodeArray}}"
     var lastTemperatureReading = "{{lastTemperatureReading}}"
     var lastPressureReading = "{{lastPressureReading}}"
     var lastHumidityReading = "{{lastHumidityReading}}"
 
     var dataArray = JSON.parse(data.replaceAll("&quot;", "\""));
+    var lastDayDataArray = JSON.parse(lastDayData.replaceAll("&quot;", "\""));
+    var lastWeekDataArray = JSON.parse(lastWeekData.replaceAll("&quot;", "\""));
+    var lastMonthDataArray = JSON.parse(lastMonthData.replaceAll("&quot;", "\""));
     var nodeArray = JSON.parse(node.replaceAll("&quot;", "\""));
 
     lastTemperatureReading = lastTemperatureReading.replaceAll("&quot;", "");
@@ -65,6 +71,21 @@
         </label>
       </fieldset>
     </div> -->
+    <div class="row">
+      <dl id='countries' class="dropdown">
+          <dt>
+            <a href="#"><span>Last Day</span></a>
+          </dt>
+          <dd>
+              <ul>
+                  <li><a href="#">Last Day<span class="value">DA</span></a></li>
+                  <li><a href="#">Last Week<span class="value">WE</span></a></li>
+                  <li><a href="#">Last Month<span class="value">MO</span></a></li>
+                  <li><a href="#">All Time<span class="value">AT</span></a></li>
+              </ul>
+          </dd>
+      </dl>
+    </div>
     <div class="row">
       <div class="temperature">
         <div class="info">
