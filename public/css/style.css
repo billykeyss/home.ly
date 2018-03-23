@@ -200,18 +200,23 @@ canvas {
   border-top-color: #2980B9;
   border-right-color: #2980B9;
   border-bottom-color: #2980B9;
+  border-left-color: #2980B9;
 }
 
 .c-humidity {
   background: transparent;
   border-top-color: #9B59B6;
   border-right-color: #9B59B6;
+  border-bottom-color: #9B59B6;
+  border-left-color: #9B59B6;
 }
 
 .c-pressure {
   background: transparent;
-  border-top-color: #950372;
-  border-right-color: #36e8c3;
+  border-top-color: rgba(12, 100, 40, 0.9);
+  border-right-color: rgba(12, 100, 40, 0.9);
+  border-bottom-color: rgba(12, 100, 40, 0.9);
+  border-left-color: rgba(12, 100, 40, 0.9);
 }
 
 .fa {
@@ -348,7 +353,7 @@ fieldset {
 
 /* Dropdown */
 
-/* General dropdown styles */       
+/* General dropdown styles */
 .dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
 .dropdown dd { position:relative; }
 

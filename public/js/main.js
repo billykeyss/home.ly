@@ -9,8 +9,8 @@ socket.on('homeDataUpdate', function(dataPoint) {
 
 function updateDataValues(dataPoint) {
 	$('#lastPressureReading').text(dataPoint.pressure.toFixed(2));
-	$('#lastTemperatureReading').text(dataPoint.pressure.toFixed(2));
-	$('#lastHumidityReading').text(dataPoint.pressure.toFixed(2));
+	$('#lastTemperatureReading').text(dataPoint.temperature.toFixed(2));
+	$('#lastHumidityReading').text(dataPoint.humidity.toFixed(2));
 }
 
 function updateAllDataArrays(dataPoint) {
@@ -82,7 +82,6 @@ function buildChartData(data, key) {
 
 function buildChart(ctx, chartData) {
 	var timeFormat = 'dddd, MMMM Do YYYY, H:mm:ss';
-
 	window.myChart = new Chart(ctx, {
 		type: 'line',
 		data: chartData,
@@ -108,9 +107,9 @@ function buildChart(ctx, chartData) {
 					}
 				}]
 			}
+			// animation: false
 		}
 	});
-
 	window.myChart.update();
 }
 
