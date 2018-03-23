@@ -1,3 +1,47 @@
+var socket = io.connect('http://localhost:3001');
+
+socket.on('homeDataUpdate', function(dataPoint) {
+	updateDataArray(dataPoint);
+	updateChart($('#currentSetting')[0].text);
+});
+
+function getSelectedValue(id) {
+	return $("#" + id).find("dt a span.value").html();
+}
+
+function updateDataArray(dataPoint) {
+	updateArrayWithDatapoint(lastDayDataArray, dataPoint);
+	updateArrayWithDatapoint(lastWeekDataArray, dataPoint);
+	updateArrayWithDatapoint(lastMonthDataArray, dataPoint);
+	updateArrayWithDatapoint(dataArray, dataPoint);
+}
+
+function updateArrayWithDatapoint(array, dataPoint) {
+	array[dataPoint.pi_ID].humidity.push(dataPoint.humidity);
+	array[dataPoint.pi_ID].pressure.push(dataPoint.pressure);
+	array[dataPoint.pi_ID].temperature.push(dataPoint.temperature);
+	array[dataPoint.pi_ID].labels.push(dataPoint.date_time);
+}
+
+function updateChart(text) {
+	var ctx1 = document.getElementById("myChart").getContext("2d");
+	ctx1.height = 1800;
+	if (text.indexOf("Day") !== -1) {
+    let chartData = buildChartData(lastDayDataArray, "simNodeDevice");
+    buildChart(ctx1, chartData);
+	} else if (text.indexOf("Week") !== -1) {
+    let chartData = buildChartData(lastWeekDataArray, "simNodeDevice");
+    buildChart(ctx1, chartData);
+	} else if (text.indexOf("Month") !== -1) {
+    let chartData = buildChartData(lastMonthDataArray, "simNodeDevice");
+    buildChart(ctx1, chartData);
+  } else if (text.indexOf("Time") !== -1) {
+    let chartData = buildChartData(dataArray, "simNodeDevice");
+    buildChart(ctx1, chartData);
+	}
+}
+
+
 function buildChartData(data, key) {
 	var timeFormat = 'dddd, MMMM Do YYYY, H:mm:ss';
 
@@ -77,15 +121,6 @@ function buildChart(ctx, chartData) {
 	});
 }
 
-
-function getSelectedValue(id) {
-	return $("#" + id).find("dt a span.value").html();
-}
-$("button").click(function(e) {
-	var val = getSelectedValue('countries');
-	alert(val);
-});
-
 $(".dropdown dt a").click(function(e) {
 	$(".dropdown dd ul").toggle();
 	e.preventDefault();
@@ -95,29 +130,7 @@ $(".dropdown dd ul li a").click(function() {
 	var text = $(this).html();
 	$(".dropdown dt a span").html(text);
 	$(".dropdown dd ul").hide();
-
-
-  var ctx1 = document.getElementById("myChart").getContext("2d");
-	ctx1.height = 1800;
-	var timeFormat = 'dddd, MMMM Do YYYY, H:mm:ss';
-
-
-	if (text.includes("Day")) {
-    console.log('day chart');
-    let chartData = buildChartData(lastDayDataArray, "simNodeDevice");
-    buildChart(ctx1, chartData);
-	} else if (text.includes("Week")) {
-    console.log("week chart");
-    let chartData = buildChartData(lastWeekDataArray, "simNodeDevice");
-    buildChart(ctx1, chartData);
-	} else if (text.includes("Month")) {
-    let chartData = buildChartData(lastMonthDataArray, "simNodeDevice");
-    buildChart(ctx1, chartData);
-  } else if (text.includes('Time')) {
-    let chartData = buildChartData(dataArray, "simNodeDevice");
-    buildChart(ctx1, chartData);
-	}
-
+	updateChart(text);
 });
 
 $(document).bind('click', function(e) {

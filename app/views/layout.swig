@@ -72,9 +72,9 @@
       </fieldset>
     </div> -->
     <div class="row">
-      <dl id='countries' class="dropdown">
+      <dl id='timeSelector' class="dropdown">
           <dt>
-            <a href="#"><span>Last Day</span></a>
+            <a href="#" id="currentSetting"><span>All Time</span></a>
           </dt>
           <dd>
               <ul>
@@ -131,6 +131,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
   <!-- CDN for chart js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
   <!-- Compiled and minified global js file -->
   <script type="text/javascript" src="/js/main.js"></script>
 </body>
