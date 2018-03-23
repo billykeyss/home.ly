@@ -16,12 +16,12 @@ const app = express();
 
 module.exports = require('./config/express')(app, config);
 
-app.listen(config.port, () => {
+const server = app.listen(config.port, () => {
 	console.log('Express server listening on port ' + config.port);
 });
 
 var sock = require('socket.io');
-var io = sock.listen(app.listen(3001));
+var io = sock.listen(server);
 
 var client = EventHubClient.fromConnectionString(connectionString);
 client.open()

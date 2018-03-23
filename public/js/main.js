@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost:3001');
+var socket = io.connect();
 
 socket.on('homeDataUpdate', function(dataPoint) {
 	updateDataArray(dataPoint);
