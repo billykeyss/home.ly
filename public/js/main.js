@@ -1,15 +1,19 @@
 var socket = io.connect();
 
 socket.on('homeDataUpdate', function(dataPoint) {
-	updateDataArray(dataPoint);
+	// Received data update from socket connection
+	updateAllDataArrays(dataPoint);
+	updateDataValues(dataPoint);
 	updateChart($('#currentSetting')[0].text);
 });
 
-function getSelectedValue(id) {
-	return $("#" + id).find("dt a span.value").html();
+function updateDataValues(dataPoint) {
+	$('#lastPressureReading').text(dataPoint.pressure.toFixed(2));
+	$('#lastTemperatureReading').text(dataPoint.pressure.toFixed(2));
+	$('#lastHumidityReading').text(dataPoint.pressure.toFixed(2));
 }
 
-function updateDataArray(dataPoint) {
+function updateAllDataArrays(dataPoint) {
 	updateArrayWithDatapoint(lastDayDataArray, dataPoint);
 	updateArrayWithDatapoint(lastWeekDataArray, dataPoint);
 	updateArrayWithDatapoint(lastMonthDataArray, dataPoint);
@@ -25,22 +29,16 @@ function updateArrayWithDatapoint(array, dataPoint) {
 
 function updateChart(text) {
 	var ctx1 = document.getElementById("myChart").getContext("2d");
-	ctx1.height = 1800;
 	if (text.indexOf("Day") !== -1) {
-    let chartData = buildChartData(lastDayDataArray, "simNodeDevice");
-    buildChart(ctx1, chartData);
+		buildChart(ctx1, buildChartData(lastDayDataArray, "simNodeDevice"));
 	} else if (text.indexOf("Week") !== -1) {
-    let chartData = buildChartData(lastWeekDataArray, "simNodeDevice");
-    buildChart(ctx1, chartData);
+		buildChart(ctx1, buildChartData(lastWeekDataArray, "simNodeDevice"));
 	} else if (text.indexOf("Month") !== -1) {
-    let chartData = buildChartData(lastMonthDataArray, "simNodeDevice");
-    buildChart(ctx1, chartData);
-  } else if (text.indexOf("Time") !== -1) {
-    let chartData = buildChartData(dataArray, "simNodeDevice");
-    buildChart(ctx1, chartData);
+		buildChart(ctx1, buildChartData(lastMonthDataArray, "simNodeDevice"));
+	} else if (text.indexOf("Time") !== -1) {
+		buildChart(ctx1, buildChartData(dataArray, "simNodeDevice"));
 	}
 }
-
 
 function buildChartData(data, key) {
 	var timeFormat = 'dddd, MMMM Do YYYY, H:mm:ss';
@@ -82,17 +80,10 @@ function buildChartData(data, key) {
 	return lineChartData;
 }
 
-window.onload = function() {
-	var ctx1 = document.getElementById("myChart").getContext("2d");
-	ctx1.height = 1800;
-	let chartData = buildChartData(dataArray, "simNodeDevice");
-  buildChart(ctx1, chartData);
-};
-
 function buildChart(ctx, chartData) {
-  var timeFormat = 'dddd, MMMM Do YYYY, H:mm:ss';
+	var timeFormat = 'dddd, MMMM Do YYYY, H:mm:ss';
 
-  window.myChart = new Chart(ctx, {
+	window.myChart = new Chart(ctx, {
 		type: 'line',
 		data: chartData,
 		options: {
@@ -119,6 +110,8 @@ function buildChart(ctx, chartData) {
 			}
 		}
 	});
+
+	window.myChart.update();
 }
 
 $(".dropdown dt a").click(function(e) {
@@ -138,3 +131,8 @@ $(document).bind('click', function(e) {
 	if (!$clicked.parents().hasClass("dropdown"))
 		$(".dropdown dd ul").hide();
 });
+
+window.onload = function() {
+	var ctx1 = document.getElementById("myChart").getContext("2d");
+	buildChart(ctx1, buildChartData(dataArray, "simNodeDevice"));
+};

@@ -91,7 +91,7 @@
         <div class="info">
           <div class="wrapper">
             <div>
-              <span class="circle c-temperature"> {{ lastTemperatureReading }} </br> Degrees </span>
+              <span class="circle c-temperature"> <span id="lastTemperatureReading">{{ lastTemperatureReading }}</span> </br> Degrees </span>
             </div>
             <div>
               <p>This is the last recorded temperature value in your home.</p>
@@ -103,7 +103,7 @@
         <div class="info">
           <div class="wrapper">
             <div>
-              <span class="circle c-humidity"> {{ lastHumidityReading }} </br> Percent </span>
+              <span class="circle c-humidity"> <span id="lastHumidityReading">{{ lastHumidityReading }}</span></br> Percent </span>
             </div>
             <div>
               <p>This is the last recorded humidity level in your home.</p>
@@ -115,7 +115,7 @@
         <div class="info">
           <div class="wrapper">
             <div>
-              <span class="circle c-pressure"> {{ lastPressureReading }} </br> kPa </span>
+              <span class="circle c-pressure"> <span id="lastPressureReading">{{ lastPressureReading }}</span> </br> kPa </span>
             </div>
             <div>
               <p>This is the last recorded pressure value in your home.</p>
