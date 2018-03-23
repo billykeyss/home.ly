@@ -37,13 +37,17 @@ client.open()
 				});
 				receiver.on('message', function(message) {
 					var data = message.body;
+					if (data.type == 'snore') {
+						// Data.addSnoreDataDirectDB(data);
+					} else if (data.type == 'home') {
+						// Data.addDataDirectDB(data);
+					};
+
 					let dateTime = data.date_time;
 					data.date_time = moment(dateTime * 1000).format("dddd, MMMM Do YYYY, H:mm:ss")
 					if (data.type == 'snore') {
-						// Data.addSnoreDataDirectDB(data);
 						io.sockets.emit('snoreDataUpdate', data);
 					} else if (data.type == 'home') {
-						// Data.addDataDirectDB(data);
 						io.sockets.emit('homeDataUpdate', data);
 					};
 				})

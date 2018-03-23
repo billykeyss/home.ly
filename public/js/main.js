@@ -8,9 +8,11 @@ socket.on('homeDataUpdate', function(dataPoint) {
 });
 
 function updateDataValues(dataPoint) {
-	$('#lastPressureReading').text(dataPoint.pressure.toFixed(2));
-	$('#lastTemperatureReading').text(dataPoint.temperature.toFixed(2));
-	$('#lastHumidityReading').text(dataPoint.humidity.toFixed(2));
+	if(dataPoint.type = Cookies.get('currentDevice')) {
+		$('#lastPressureReading').text(dataPoint.pressure.toFixed(2));
+		$('#lastTemperatureReading').text(dataPoint.temperature.toFixed(2));
+		$('#lastHumidityReading').text(dataPoint.humidity.toFixed(2));
+	}
 }
 
 function updateAllDataArrays(dataPoint) {
@@ -30,13 +32,13 @@ function updateArrayWithDatapoint(array, dataPoint) {
 function updateChart(text) {
 	var ctx1 = document.getElementById("myChart").getContext("2d");
 	if (text.indexOf("Day") !== -1) {
-		buildChart(ctx1, buildChartData(lastDayDataArray, "simNodeDevice"));
+		buildChart(ctx1, buildChartData(lastDayDataArray, Cookies.get("currentDevice")));
 	} else if (text.indexOf("Week") !== -1) {
-		buildChart(ctx1, buildChartData(lastWeekDataArray, "simNodeDevice"));
+		buildChart(ctx1, buildChartData(lastWeekDataArray, Cookies.get("currentDevice")));
 	} else if (text.indexOf("Month") !== -1) {
-		buildChart(ctx1, buildChartData(lastMonthDataArray, "simNodeDevice"));
+		buildChart(ctx1, buildChartData(lastMonthDataArray, Cookies.get("currentDevice")));
 	} else if (text.indexOf("Time") !== -1) {
-		buildChart(ctx1, buildChartData(dataArray, "simNodeDevice"));
+		buildChart(ctx1, buildChartData(dataArray, Cookies.get("currentDevice")));
 	}
 }
 
@@ -106,22 +108,22 @@ function buildChart(ctx, chartData) {
 						display: true
 					}
 				}]
-			}
-			// animation: false
+			},
+			animation: false
 		}
 	});
 	window.myChart.update();
 }
 
-$(".dropdown dt a").click(function(e) {
-	$(".dropdown dd ul").toggle();
+$(".dropdown1 dt a").click(function(e) {
+	$(".dropdown1 dd ul").toggle();
 	e.preventDefault();
 });
 
-$(".dropdown dd ul li a").click(function() {
+$(".dropdown1 dd ul li a").click(function() {
 	var text = $(this).html();
-	$(".dropdown dt a span").html(text);
-	$(".dropdown dd ul").hide();
+	$(".dropdown1 dt a span").html(text);
+	$(".dropdown1 dd ul").hide();
 	updateChart(text);
 });
 
@@ -129,9 +131,40 @@ $(document).bind('click', function(e) {
 	var $clicked = $(e.target);
 	if (!$clicked.parents().hasClass("dropdown"))
 		$(".dropdown dd ul").hide();
+
+	if (!$clicked.parents().hasClass("dropdown1"))
+		$(".dropdown1 dd ul").hide();
 });
 
 window.onload = function() {
 	var ctx1 = document.getElementById("myChart").getContext("2d");
 	buildChart(ctx1, buildChartData(dataArray, "simNodeDevice"));
+	if (Cookies.get('currentDevice') === undefined) {
+		Cookies.set('currentDevice', nodeArray[0], {
+			expires: 7
+		});
+	}
+	$('#currentDevice').text(Cookies.get('currentDevice'));
+
+	for (var i = 0; i < nodeArray.length; i++) {
+		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
+		console.log($input);
+		$input.appendTo($(".device-group"));
+	}
+
+	$(".dropdown dt a").click(function(e) {
+		$(".dropdown dd ul").toggle();
+		e.preventDefault();
+	});
+
+	$(".dropdown dd ul li a").click(function(e) {
+		var text = $(this).html();
+
+		$(".dropdown dt a span").html(text);
+		$(".dropdown dd ul").hide();
+
+		Cookies.set('currentDevice', text);
+		updateChart($('#currentSetting')[0].text);
+	});
+
 };

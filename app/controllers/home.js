@@ -72,7 +72,7 @@ router.get('/', (req, res, next) => {
 			lastDayData: JSON.stringify(lastDayChartDataObject),
 			lastWeekData: JSON.stringify(lastWeekChartDataObject),
 			lastMonthData: JSON.stringify(lastMonthChartDataObject),
-			nodeArray: JSON.stringify(nodeArray),
+			nodeArray: JSON.stringify(Object.keys(chartDataObject)),
 			lastTemperatureReading: JSON.stringify(lastItem.temperature.toFixed(2).toString()),
 			lastPressureReading: JSON.stringify(lastItem.pressure.toFixed(2).toString()),
 			lastHumidityReading: JSON.stringify(lastItem.humidity.toFixed(2).toString())

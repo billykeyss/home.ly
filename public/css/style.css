@@ -354,19 +354,20 @@ fieldset {
 /* Dropdown */
 
 /* General dropdown styles */
-.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
-.dropdown dd { position:relative; }
+.dropdown-style dd, .dropdown-style dt, .dropdown-style ul { margin:0px; padding:0px; }
+.dropdown-style dd { position:relative; }
 
 /* DT styles for sliding doors */
-.dropdown dt a {
+.dropdown-style dt a {
   color: #FFF;
   background:#1EAA8D url('http://www.jankoatwarpspeed.com/wp-content/uploads/examples/reinventing-drop-down/arrow.png') no-repeat scroll 180px center;
   display: block;
   padding-right:20px;
   width: 180px;
   text-decoration: none;
+  line-height: 2.0em;
 }
-.dropdown dt a span {
+.dropdown-style dt a span {
   cursor:pointer;
   display:block;
   padding:5px;
@@ -374,26 +375,27 @@ fieldset {
   text-decoration: none;
 }
 /* UL styles */
-.dropdown dd ul {
+.dropdown-style dd ul {
   background:#1EAA8D none repeat scroll 0 0; display:none;
   list-style:none; padding:5px 0px; position:absolute;
   left: 0px;
   top: 2px;
   width: auto;
   min-width:170px;
+  line-height: 2.0em;
 }
-.dropdown span.value { display:none;}
-.dropdown dd ul li a {
+.dropdown-style span.value { display:none;}
+.dropdown-style dd ul li a {
   padding: 5px;
   display: block;
   color: #fff;
   outline: none;
   text-decoration: none;
 }
-.dropdown dd ul li a:hover{
+.dropdown-style dd ul li a:hover{
   background-color: #2b9c84 ;
   color: #FFF;
   text-decoration: none;
 }
 
-.dropdown span.value { display:none; }
+.dropdown-style span.value { display:none; }

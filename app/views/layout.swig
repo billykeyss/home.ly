@@ -49,41 +49,28 @@
   </aside>
   <div class="dashboard">
     <canvas id="myChart"></canvas>
-
-
-    <!-- <div class="row">
-      <h1> Registered Devices: </h1>
-      <fieldset>
-        {% for nodeItem in nodeArray %}
-          {% if loop.first %}<p>First! </p>{% endif %}
-        {% endfor %}
-        <input id="item-1" class="radio-inline__input" type="radio" name="accessible-radio" value="item-1" checked="checked"/>
-        <label class="radio-inline__label" for="item-1">
-            Item 1
-        </label>
-        <input id="item-2" class="radio-inline__input" type="radio" name="accessible-radio" value="item-2"/>
-        <label class="radio-inline__label" for="item-2">
-            Item 2
-        </label>
-        <input id="item-3" class="radio-inline__input" type="radio" name="accessible-radio" value="item-3"/>
-        <label class="radio-inline__label" for="item-3">
-            Item 3
-        </label>
-      </fieldset>
-    </div> -->
-    <div class="row">
-      <dl id='timeSelector' class="dropdown">
-          <dt>
+    <div class="row" style="min-height: 2.0em">
+      <dl id='deviceSelector' class="dropdown dropdown-style" style="float:left">
+        <dt>
+            <a href="#"><span id="currentDevice">Select Device</span></a>
+          </dt>
+        <dd>
+          <ul class='device-group'>
+          </ul>
+        </dd>
+      </dl>
+      <dl id='timeSelector' class="dropdown1 dropdown-style" style="float:right">
+        <dt>
             <a href="#" id="currentSetting"><span>All Time</span></a>
           </dt>
-          <dd>
-              <ul>
-                  <li><a href="#">Last Day<span class="value">DA</span></a></li>
-                  <li><a href="#">Last Week<span class="value">WE</span></a></li>
-                  <li><a href="#">Last Month<span class="value">MO</span></a></li>
-                  <li><a href="#">All Time<span class="value">AT</span></a></li>
-              </ul>
-          </dd>
+        <dd>
+          <ul>
+            <li><a href="#">Last Day<span class="value">DA</span></a></li>
+            <li><a href="#">Last Week<span class="value">WE</span></a></li>
+            <li><a href="#">Last Month<span class="value">MO</span></a></li>
+            <li><a href="#">All Time<span class="value">AT</span></a></li>
+          </ul>
+        </dd>
       </dl>
     </div>
     <div class="row">
@@ -132,6 +119,7 @@
   <!-- CDN for chart js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <!-- Compiled and minified global js file -->
   <script type="text/javascript" src="/js/main.js"></script>
 </body>
