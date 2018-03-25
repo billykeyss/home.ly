@@ -1,7 +1,7 @@
 function updateDataValues(dataPoint) {
-	lastDataItemArray[Cookies.get('currentDevice')].humidity = humidity;
-	lastDataItemArray[Cookies.get('currentDevice')].pressure = pressure;
-	lastDataItemArray[Cookies.get('currentDevice')].temperature = temperature;
+	lastDataItemArray[Cookies.get('currentDevice')].humidity = dataPoint.humidity;
+	lastDataItemArray[Cookies.get('currentDevice')].pressure = dataPoint.pressure;
+	lastDataItemArray[Cookies.get('currentDevice')].temperature = dataPoint.temperature;
 
 	console.log(lastDataItemArray);
 
@@ -21,9 +21,13 @@ function updateDataValues(dataPoint) {
 }
 
 function refreshValuesDeviceUpdate() {
-	window.humidityGauge.set(lastDataItemArray.find(i => i.pi_id === Cookies.get('currentDevice')).humidity); // set actual value
-	window.temperatureGauge.set(lastDataItemArray.find(i => i.pi_id === Cookies.get('currentDevice')).temperature); // set actual value
-	window.humidityGauge.set(lastDataItemArray.find(i => i.pi_id === Cookies.get('currentDevice')).pressure); // set actual value
+	window.humidityGauge.set(lastDataItemArray[Cookies.get('currentDevice')].humidity); // set actual value
+	window.temperatureGauge.set(lastDataItemArray[Cookies.get('currentDevice')].temperature); // set actual value
+	window.pressureGauge.set(lastDataItemArray[Cookies.get('currentDevice')].pressure); // set actual value
+
+	$("#pressure-preview").text(lastDataItemArray[Cookies.get('currentDevice')].pressure);
+	$("#temperature-preview").text(lastDataItemArray[Cookies.get('currentDevice')].temperature);
+	$("#humidity-preview").text(lastDataItemArray[Cookies.get('currentDevice')].humidity);
 }
 
 function buildHumidityGauge() {
@@ -160,6 +164,8 @@ window.onload = function() {
 	buildTemperatureGauge();
 	buildPressureGauge();
 	buildHumidityGauge();
+	refreshValuesDeviceUpdate();
+
 
 	if (Cookies.get('currentDevice') === undefined) {
 		Cookies.set('currentDevice', nodeArray[0], {
