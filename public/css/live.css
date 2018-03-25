@@ -65,11 +65,6 @@ aside a {
   float: right;
 }
 
-canvas {
-  margin: -50px -5px;
-  width: 101% !important;
-}
-
 .row {
   width: 100%;
   margin-top: 41px;
@@ -80,6 +75,29 @@ canvas {
   font-weight: 400;
   font-size: 14px;
   font-size: 0.875rem;
+}
+
+.temperature {
+  background: #283949;
+  width: 100%;
+  height: auto;
+}
+
+.humidity {
+  background: #233140;
+  width: 100%;
+  height: auto;
+}
+
+.pressure {
+  background: #283949;
+  width: 100%;
+  height: auto;
+}
+
+.info {
+  padding: 25px;
+  height: 200px;
 }
 
 .fa {
@@ -100,9 +118,12 @@ canvas {
   }
 }
 
+
 .wrapper {
     display: flex;
+    height:100%;
     box-sizing: border-box;
+    color:white;
 }
 
 .wrapper > div {
@@ -112,53 +133,8 @@ canvas {
     margin: 0 16px;
 }
 
-/* Dropdown */
-
-/* General dropdown styles */
-.dropdown-style dd, .dropdown-style dt, .dropdown-style ul { margin:0px; padding:0px; }
-.dropdown-style dd { position:relative; }
-
-/* DT styles for sliding doors */
-.dropdown-style dt a {
-  color: #FFF;
+.textfield{
   text-align: center;
-  background:#1EAA8D url('http://www.jankoatwarpspeed.com/wp-content/uploads/examples/reinventing-drop-down/arrow.png') no-repeat scroll 180px center;
-  display: block;
-  padding-right:20px;
-  width: 180px;
-  text-decoration: none;
-  line-height: 2.0em;
+  color: white;
+  width:300px;
 }
-.dropdown-style dt a span {
-  cursor:pointer;
-  display:block;
-  padding:5px;
-  color: #FFF;
-  text-decoration: none;
-}
-/* UL styles */
-.dropdown-style dd ul {
-  background:#1EAA8D none repeat scroll 0 0; display:none;
-  list-style:none; padding:5px 0px; position:absolute;
-  left: 0px;
-  top: 2px;
-  width: 100%;
-  min-width:170px;
-  line-height: 2.0em;
-}
-.dropdown-style span.value { display:none;}
-.dropdown-style dd ul li a {
-  padding: 5px;
-  display: block;
-  color: #fff;
-  outline: none;
-  text-decoration: none;
-  text-align: center;
-}
-.dropdown-style dd ul li a:hover{
-  background-color: #2b9c84 ;
-  color: #FFF;
-  text-decoration: none;
-}
-
-.dropdown-style span.value { display:none; }

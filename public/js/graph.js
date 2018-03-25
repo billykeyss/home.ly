@@ -1,20 +1,3 @@
-var socket = io.connect();
-
-socket.on('homeDataUpdate', function(dataPoint) {
-	// Received data update from socket connection
-	updateAllDataArrays(dataPoint);
-	updateDataValues(dataPoint);
-	updateChart($('#currentSetting')[0].text);
-});
-
-function updateDataValues(dataPoint) {
-	if(dataPoint.type = Cookies.get('currentDevice')) {
-		$('#lastPressureReading').text(dataPoint.pressure.toFixed(2));
-		$('#lastTemperatureReading').text(dataPoint.temperature.toFixed(2));
-		$('#lastHumidityReading').text(dataPoint.humidity.toFixed(2));
-	}
-}
-
 function updateAllDataArrays(dataPoint) {
 	updateArrayWithDatapoint(lastDayDataArray, dataPoint);
 	updateArrayWithDatapoint(lastWeekDataArray, dataPoint);
@@ -88,6 +71,7 @@ function buildChart(ctx, chartData) {
 		type: 'line',
 		data: chartData,
 		options: {
+			maintainAspectRatio: false,
 			scales: {
 				xAxes: [{
 					type: 'time',
@@ -137,6 +121,18 @@ $(document).bind('click', function(e) {
 });
 
 window.onload = function() {
+	var socket = io.connect();
+
+	socket.on('homeDataUpdate', function(dataPoint) {
+		// Received data update from socket connection
+		updateAllDataArrays(dataPoint);
+		updateChart($('#currentSetting')[0].text);
+	});
+
+	window.onbeforeunload = function(e) {
+	  socket.disconnect();
+	};
+
 	var ctx1 = document.getElementById("myChart").getContext("2d");
 	buildChart(ctx1, buildChartData(dataArray, "simNodeDevice"));
 	if (Cookies.get('currentDevice') === undefined) {
@@ -148,7 +144,6 @@ window.onload = function() {
 
 	for (var i = 0; i < nodeArray.length; i++) {
 		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
-		console.log($input);
 		$input.appendTo($(".device-group"));
 	}
 

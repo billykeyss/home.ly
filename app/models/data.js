@@ -8,6 +8,44 @@ AWS.config.update({
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports = {
+	getHomeData: function() {
+		return new Promise(function(resolve, reject) {
+			docClient.scan({
+				TableName: process.env.TABLE_NAME
+			}, function(err, data) {
+				if (err) {
+					console.error('Unable to scan the table. Error JSON:', JSON.stringify(err, null, 2));
+				} else {
+					// print all the movies
+					if (data) {
+						resolve(data);
+					} else {
+						reject(err);
+					}
+				}
+			});
+		});
+	},
+
+	getSnoreData: function() {
+		return new Promise(function(resolve, reject) {
+			docClient.scan({
+				TableName: process.env.TABLE_NAME_SNORING
+			}, function(err, data) {
+				if (err) {
+					console.error('Unable to scan the table. Error JSON:', JSON.stringify(err, null, 2));
+				} else {
+					// print all the movies
+					if (data) {
+						resolve(data);
+					} else {
+						reject(err);
+					}
+				}
+			});
+		});
+	},
+
 	getAllData: function() {
 		return new Promise(function(resolve, reject) {
 			docClient.scan({

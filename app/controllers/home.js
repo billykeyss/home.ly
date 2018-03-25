@@ -15,23 +15,22 @@ router.get('/', (req, res, next) => {
 		var dataArray = data.Items;
 		var sortedDataArray = dataUtils.groupBy(dataArray, 'pi_id');
 		var chartDataObject = {};
-    var lastDayChartDataObject = {};
-    var lastWeekChartDataObject = {};
-    var lastMonthChartDataObject = {};
+		var lastDayChartDataObject = {};
+		var lastWeekChartDataObject = {};
+		var lastMonthChartDataObject = {};
 		let nodeArray = [];
-		var lastItem;
-    var emptyDataObject = {
-      labels: [],
-      humidity: [],
-      temperature: [],
-      pressure: []
-    };
+		var emptyDataObject = {
+			labels: [],
+			humidity: [],
+			temperature: [],
+			pressure: []
+		};
 
 		for (var i in sortedDataArray) {
 			chartDataObject[i] = _.cloneDeep(emptyDataObject);
-      lastDayChartDataObject[i] = _.cloneDeep(chartDataObject[i]);
-      lastWeekChartDataObject[i] = _.cloneDeep(lastDayChartDataObject[i]);
-      lastMonthChartDataObject[i] = _.cloneDeep(lastWeekChartDataObject[i]);
+			lastDayChartDataObject[i] = _.cloneDeep(chartDataObject[i]);
+			lastWeekChartDataObject[i] = _.cloneDeep(lastDayChartDataObject[i]);
+			lastMonthChartDataObject[i] = _.cloneDeep(lastWeekChartDataObject[i]);
 
 			sortedDataArray[i].forEach(function(arrayItem) {
 				chartDataObject[i].labels.push(moment(arrayItem.date_time * 1000).format("dddd, MMMM Do YYYY, H:mm:ss"));
@@ -53,29 +52,89 @@ router.get('/', (req, res, next) => {
 					lastWeekChartDataObject[i].pressure.push(arrayItem.pressure.toFixed(2));
 				}
 
-        if ((Date.now() / 1000) < (arrayItem.date_time + 30 * 24 * 60 * 60)) {
-          lastMonthChartDataObject[i].labels.push(moment(arrayItem.date_time * 1000).format("dddd, MMMM Do YYYY, H:mm:ss"));
-          lastMonthChartDataObject[i].humidity.push(arrayItem.humidity.toFixed(2));
-          lastMonthChartDataObject[i].temperature.push(arrayItem.temperature.toFixed(2));
-          lastMonthChartDataObject[i].pressure.push(arrayItem.pressure.toFixed(2));
-        }
-				lastItem = arrayItem;
+				if ((Date.now() / 1000) < (arrayItem.date_time + 30 * 24 * 60 * 60)) {
+					lastMonthChartDataObject[i].labels.push(moment(arrayItem.date_time * 1000).format("dddd, MMMM Do YYYY, H:mm:ss"));
+					lastMonthChartDataObject[i].humidity.push(arrayItem.humidity.toFixed(2));
+					lastMonthChartDataObject[i].temperature.push(arrayItem.temperature.toFixed(2));
+					lastMonthChartDataObject[i].pressure.push(arrayItem.pressure.toFixed(2));
+				}
 			});
 		}
 
-		// for (const [key, value] of Object.entries(chartDataObject)) {
-		//   nodeArray.push(key);
-		// }
-
-		res.render('layout', {
+		res.render('graph', {
 			data: JSON.stringify(chartDataObject),
 			lastDayData: JSON.stringify(lastDayChartDataObject),
 			lastWeekData: JSON.stringify(lastWeekChartDataObject),
 			lastMonthData: JSON.stringify(lastMonthChartDataObject),
-			nodeArray: JSON.stringify(Object.keys(chartDataObject)),
-			lastTemperatureReading: JSON.stringify(lastItem.temperature.toFixed(2).toString()),
-			lastPressureReading: JSON.stringify(lastItem.pressure.toFixed(2).toString()),
-			lastHumidityReading: JSON.stringify(lastItem.humidity.toFixed(2).toString())
+			nodeArray: JSON.stringify(Object.keys(chartDataObject))
+		});
+	});
+});
+
+router.get('/live', (req, res, next) => {
+	Data.getAllData().then(function(data) {
+		var dataArray = data.Items;
+		var sortedDataArray = dataUtils.groupBy(dataArray, 'pi_id');
+
+		var lastDataItemArray = {};
+
+		for (var i in sortedDataArray) {
+			let item = _.findLast(sortedDataArray[i], function(n) {
+				return n;
+			});
+			lastDataItemArray[i] = {
+				pi_id: i,
+				temperature: item.temperature.toFixed(2),
+				pressure: item.pressure.toFixed(2),
+				humidity: item.humidity.toFixed(2)
+			}
+		};
+
+		_.findLast(sortedDataArray[i], function(n) {
+			return n;
+		})
+
+		res.render('live', {
+			nodeArray: JSON.stringify(Object.keys(sortedDataArray)),
+			lastDataItemArray: JSON.stringify(lastDataItemArray)
+		});
+	});
+});
+
+
+router.get('/snore', (req, res, next) => {
+	Data.getSnoreData().then(function(data) {
+		var dataArray = data.Items;
+		var sortedDataArray = dataUtils.groupBy(dataArray, 'pi_id');
+		var tableDataArray = [];
+		var countSnoreLastHour = 0;
+		var countSnoreLastDay = 0;
+		var countSnoreLastWeek = 0;
+
+		for (var i in sortedDataArray) {
+			sortedDataArray[i].forEach(function(arrayItem) {
+				tableDataArray.push([arrayItem.pi_id, arrayItem.date_time, arrayItem.decibels]);
+				if ((Date.now() / 1000) < ((arrayItem.date_time + 24 * 60 * 60))) {
+					countSnoreLastDay++;
+				}
+				if ((Date.now() / 1000) < (arrayItem.date_time + 7 * 24 * 60 * 60)) {
+					countSnoreLastWeek++;
+				}
+				if ((Date.now() / 1000) < (arrayItem.date_time + 60 * 60)) {
+					countSnoreLastHour++;
+				}
+			});
+		}
+
+		res.render('snore', {
+			data: JSON.stringify(sortedDataArray),
+			nodeArray: JSON.stringify(Object.keys(sortedDataArray)),
+			tableData: JSON.stringify(tableDataArray),
+			countSnore: {
+				countSnoreLastDay: countSnoreLastDay,
+				countSnoreLastHour: countSnoreLastHour,
+				countSnoreLastWeek: countSnoreLastWeek
+			}
 		});
 	});
 });
