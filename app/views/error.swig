@@ -7,6 +7,7 @@
   <title>homely Analytics</title>
   <link rel="stylesheet" href="/css/error.css">
   <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Pacifico' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 </head>
 

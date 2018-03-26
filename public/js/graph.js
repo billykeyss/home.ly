@@ -1,3 +1,5 @@
+const COOKIE_VALUE = 'currentDevice';
+
 function updateAllDataArrays(dataPoint) {
 	updateArrayWithDatapoint(lastDayDataArray, dataPoint);
 	updateArrayWithDatapoint(lastWeekDataArray, dataPoint);
@@ -13,15 +15,15 @@ function updateArrayWithDatapoint(array, dataPoint) {
 }
 
 function updateChart(text) {
-	var ctx1 = document.getElementById("myChart").getContext("2d");
+	var ctx1 = document.getElementById("data-chart").getContext("2d");
 	if (text.indexOf("Day") !== -1) {
-		buildChart(ctx1, buildChartData(lastDayDataArray, Cookies.get("currentDevice")));
+		buildChart(ctx1, buildChartData(lastDayDataArray, Cookies.get(COOKIE_VALUE)));
 	} else if (text.indexOf("Week") !== -1) {
-		buildChart(ctx1, buildChartData(lastWeekDataArray, Cookies.get("currentDevice")));
+		buildChart(ctx1, buildChartData(lastWeekDataArray, Cookies.get(COOKIE_VALUE)));
 	} else if (text.indexOf("Month") !== -1) {
-		buildChart(ctx1, buildChartData(lastMonthDataArray, Cookies.get("currentDevice")));
+		buildChart(ctx1, buildChartData(lastMonthDataArray, Cookies.get(COOKIE_VALUE)));
 	} else if (text.indexOf("Time") !== -1) {
-		buildChart(ctx1, buildChartData(dataArray, Cookies.get("currentDevice")));
+		buildChart(ctx1, buildChartData(dataArray, Cookies.get(COOKIE_VALUE)));
 	}
 }
 
@@ -67,7 +69,7 @@ function buildChartData(data, key) {
 
 function buildChart(ctx, chartData) {
 	var timeFormat = 'dddd, MMMM Do YYYY, H:mm:ss';
-	window.myChart = new Chart(ctx, {
+	window.dataChart = new Chart(ctx, {
 		type: 'line',
 		data: chartData,
 		options: {
@@ -96,7 +98,7 @@ function buildChart(ctx, chartData) {
 			animation: false
 		}
 	});
-	window.myChart.update();
+	window.dataChart.update();
 }
 
 $(".dropdown1 dt a").click(function(e) {
@@ -126,21 +128,21 @@ window.onload = function() {
 	socket.on('homeDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
 		updateAllDataArrays(dataPoint);
-		updateChart($('#currentSetting')[0].text);
+		updateChart($('#current-setting')[0].text);
 	});
 
 	window.onbeforeunload = function(e) {
 	  socket.disconnect();
 	};
 
-	var ctx1 = document.getElementById("myChart").getContext("2d");
+	var ctx1 = document.getElementById("data-chart").getContext("2d");
 	buildChart(ctx1, buildChartData(dataArray, "simNodeDevice"));
-	if (Cookies.get('currentDevice') === undefined) {
-		Cookies.set('currentDevice', nodeArray[0], {
+	if (Cookies.get(COOKIE_VALUE) === undefined) {
+		Cookies.set(COOKIE_VALUE, nodeArray[0], {
 			expires: 7
 		});
 	}
-	$('#currentDevice').text(Cookies.get('currentDevice'));
+	$('#current-device').text(Cookies.get(COOKIE_VALUE));
 
 	for (var i = 0; i < nodeArray.length; i++) {
 		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
@@ -158,8 +160,8 @@ window.onload = function() {
 		$(".dropdown dt a span").html(text);
 		$(".dropdown dd ul").hide();
 
-		Cookies.set('currentDevice', text);
-		updateChart($('#currentSetting')[0].text);
+		Cookies.set(COOKIE_VALUE, text);
+		updateChart($('#current-setting')[0].text);
 	});
 
 };

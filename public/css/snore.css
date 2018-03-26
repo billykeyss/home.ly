@@ -17,10 +17,6 @@
     margin: 0 16px;
 }
 
-#snoring-table {
-  width:100%;
-}
-
 tbody tr {
     background-color: transparent !important;
 }
@@ -30,6 +26,8 @@ tbody tr {
   font-feature-settings: 'tnum';
   -webkit-font-feature-settings: 'tnum';
   -moz-font-feature-settings: 'tnum';
+  margin-right: 5%;
+  margin-left: 5%;
 }
 
 .text-align-left {
@@ -38,4 +36,8 @@ tbody tr {
 
 .text-align-right {
   text-align: right;
+}
+
+.device-group {
+  z-index: 1;
 }

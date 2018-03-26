@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/live.css">
   <link rel="stylesheet" href="/css/common.css">
   <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Pacifico' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -43,12 +44,12 @@
   </aside>
   <div class="dashboard">
     <div class="row" style="min-height: 2.0em">
-      <h1 style="float:left; color:white;">
-        Live Dashboard
+      <h1 style="float:left; color:white; padding-left: 5%;">
+        Live Analytics Dashboard
       </h1>
-      <dl id='deviceSelector' class="dropdown dropdown-style" style="float:right; text-align:center">
+      <dl id='device-selector' class="dropdown dropdown-style" style="float:right; margin-right:5%;">
         <dt>
-            <a href="#"><span id="currentDevice">Select Device</span></a>
+            <a href="#"><span id="current-device">Select Device</span></a>
           </dt>
         <dd>
           <ul class='device-group'>
