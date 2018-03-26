@@ -81,16 +81,16 @@ function buildPressureGauge() {
 	  },
 		staticLabels: {
 			font: "10px sans-serif",
-			labels: [10, 30, 50, 90],
+			labels: [20, 60, 90, 110, 140, 180],
 			color: "#ffffff",
 			fractionDigits: 0
 		},
 		staticZones: [
-			 {strokeStyle: "#F03E3E", min: 0, max: 10},
-			 {strokeStyle: "#FFDD00", min: 10, max: 30},
-			 {strokeStyle: "#30B32D", min: 30, max: 50},
-			 {strokeStyle: "#FFDD00", min: 50, max: 90},
-			 {strokeStyle: "#F03E3E", min: 90, max: 100}
+			 {strokeStyle: "#F03E3E", min: 20, max: 60},
+			 {strokeStyle: "#FFDD00", min: 60, max: 95},
+			 {strokeStyle: "#30B32D", min: 95, max: 115},
+			 {strokeStyle: "#FFDD00", min: 115, max: 140},
+			 {strokeStyle: "#F03E3E", min: 140, max: 180}
 		],
 		limitMax: false,
 	  limitMin: false,
@@ -103,8 +103,8 @@ function buildPressureGauge() {
 	};
 	window.pressureGauge = new Gauge(document.getElementById('pressure-gauge')).setOptions(pressureOpts); // create sexy gauge!
 	window.pressureGauge.setTextField(document.getElementById("pressure-textfield"));
-	window.pressureGauge.maxValue = 100; // set max gauge value
-	window.pressureGauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+	window.pressureGauge.maxValue = 180; // set max gauge value
+	window.pressureGauge.setMinValue(20);  // Prefer setter over gauge.minValue = 0
 	window.pressureGauge.animationSpeed = 32; // set animation speed (32 is default value)
 	window.pressureGauge.set(lastDataItemArray[Cookies.get('currentDevice')].pressure); // set actual value
 }
@@ -161,17 +161,18 @@ window.onload = function() {
 	};
 
 
+	if (Cookies.get('currentDevice') === undefined) {
+		Cookies.set('currentDevice', nodeArray[0], {
+			expires: 7
+		});
+	}
+
 	buildTemperatureGauge();
 	buildPressureGauge();
 	buildHumidityGauge();
 	refreshValuesDeviceUpdate();
 
 
-	if (Cookies.get('currentDevice') === undefined) {
-		Cookies.set('currentDevice', nodeArray[0], {
-			expires: 7
-		});
-	}
 
 	$('#currentDevice').text(Cookies.get('currentDevice'));
 

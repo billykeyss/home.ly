@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <title>homely Analytics</title>
   <link rel="stylesheet" href="/css/snore.css">
-  <link rel="stylesheet" href="/css/dropdown.css">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/table.css">
   <!-- Google Fonts -->
-  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Pacifico' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.jqueryui.min.css">
@@ -19,15 +20,15 @@
     String.prototype.replaceAll = function(str1, str2, ignore) {
       return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, "\\$&"), (ignore ? "gi" : "g")), (typeof(str2) == "string") ? str2.replace(/\$/g, "$$$$") : str2);
     }
-    var node = "{{nodeArray}}";
 
+    var node = "{{nodeArray}}";
     var data = "{{data}}";
     var tableData = "{{tableData}}";
+    var countSnore = "{{countSnore}}";
     var dataArray = JSON.parse(data.replaceAll("&quot;", "\""));
     var tableDataArray = JSON.parse(tableData.replaceAll("&quot;", "\""));
-    // console.log(tableData)
+    var countSnoreArray = JSON.parse(countSnore.replaceAll("&quot;", "\""));
     var nodeArray = JSON.parse(node.replaceAll("&quot;", "\""));
-
   </script>
 </head>
 
@@ -51,11 +52,11 @@
   </aside>
   <div class="dashboard">
     <div class="row">
-      <table id="snoring-table">
+      <table id="snoring-table" class="hover">
         <thead>
-          <th>pi_id</th>
-          <th>date_time</th>
-          <th>decibels</th>
+          <th class="text-align-left"></th>
+          <th class="text-align-left"></th>
+          <th class="text-align-left"></th>
         </thead>
         <tbody>
         </tbody>

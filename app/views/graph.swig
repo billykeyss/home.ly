@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <title>homely Analytics</title>
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/dropdown.css">
+  <link rel="stylesheet" href="/css/common.css">
   <!-- Google Fonts -->
-  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Pacifico' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <!-- Compiled and minified CSS -->

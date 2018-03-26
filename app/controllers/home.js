@@ -3,7 +3,6 @@ const router = express.Router();
 const update = express.Router();
 const Data = require('../models/data');
 const dataUtils = require('../utils/data_utils.js');
-const moment = require('moment');
 const _ = require('lodash');
 
 module.exports = (app) => {
@@ -33,27 +32,27 @@ router.get('/', (req, res, next) => {
 			lastMonthChartDataObject[i] = _.cloneDeep(lastWeekChartDataObject[i]);
 
 			sortedDataArray[i].forEach(function(arrayItem) {
-				chartDataObject[i].labels.push(moment(arrayItem.date_time * 1000).format("dddd, MMMM Do YYYY, H:mm:ss"));
+				chartDataObject[i].labels.push(dataUtils.convertUnixToMomentString(arrayItem.date_time));
 				chartDataObject[i].humidity.push(arrayItem.humidity.toFixed(2));
 				chartDataObject[i].temperature.push(arrayItem.temperature.toFixed(2));
 				chartDataObject[i].pressure.push(arrayItem.pressure.toFixed(2));
 
 				if ((Date.now() / 1000) < ((arrayItem.date_time + 24 * 60 * 60))) {
-					lastDayChartDataObject[i].labels.push(moment(arrayItem.date_time * 1000).format("dddd, MMMM Do YYYY, H:mm:ss"));
+					lastDayChartDataObject[i].labels.push(dataUtils.convertUnixToMomentString(arrayItem.date_time));
 					lastDayChartDataObject[i].humidity.push(arrayItem.humidity.toFixed(2));
 					lastDayChartDataObject[i].temperature.push(arrayItem.temperature.toFixed(2));
 					lastDayChartDataObject[i].pressure.push(arrayItem.pressure.toFixed(2));
 				}
 
 				if ((Date.now() / 1000) < (arrayItem.date_time + 7 * 24 * 60 * 60)) {
-					lastWeekChartDataObject[i].labels.push(moment(arrayItem.date_time * 1000).format("dddd, MMMM Do YYYY, H:mm:ss"));
+					lastWeekChartDataObject[i].labels.push(dataUtils.convertUnixToMomentString(arrayItem.date_time));
 					lastWeekChartDataObject[i].humidity.push(arrayItem.humidity.toFixed(2));
 					lastWeekChartDataObject[i].temperature.push(arrayItem.temperature.toFixed(2));
 					lastWeekChartDataObject[i].pressure.push(arrayItem.pressure.toFixed(2));
 				}
 
 				if ((Date.now() / 1000) < (arrayItem.date_time + 30 * 24 * 60 * 60)) {
-					lastMonthChartDataObject[i].labels.push(moment(arrayItem.date_time * 1000).format("dddd, MMMM Do YYYY, H:mm:ss"));
+					lastMonthChartDataObject[i].labels.push(dataUtils.convertUnixToMomentString(arrayItem.date_time));
 					lastMonthChartDataObject[i].humidity.push(arrayItem.humidity.toFixed(2));
 					lastMonthChartDataObject[i].temperature.push(arrayItem.temperature.toFixed(2));
 					lastMonthChartDataObject[i].pressure.push(arrayItem.pressure.toFixed(2));
@@ -113,7 +112,7 @@ router.get('/snore', (req, res, next) => {
 
 		for (var i in sortedDataArray) {
 			sortedDataArray[i].forEach(function(arrayItem) {
-				tableDataArray.push([arrayItem.pi_id, arrayItem.date_time, arrayItem.decibels]);
+				tableDataArray.push([arrayItem.pi_id, dataUtils.convertUnixToMomentStringTable(arrayItem.date_time), arrayItem.decibels.toFixed(2)]);
 				if ((Date.now() / 1000) < ((arrayItem.date_time + 24 * 60 * 60))) {
 					countSnoreLastDay++;
 				}
@@ -130,11 +129,11 @@ router.get('/snore', (req, res, next) => {
 			data: JSON.stringify(sortedDataArray),
 			nodeArray: JSON.stringify(Object.keys(sortedDataArray)),
 			tableData: JSON.stringify(tableDataArray),
-			countSnore: {
+			countSnore: JSON.stringify({
 				countSnoreLastDay: countSnoreLastDay,
 				countSnoreLastHour: countSnoreLastHour,
 				countSnoreLastWeek: countSnoreLastWeek
-			}
+			})
 		});
 	});
 });

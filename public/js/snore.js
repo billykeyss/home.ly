@@ -1,9 +1,9 @@
 $('#snoring-table').DataTable({
 	data: tableDataArray,
 	columns: [
-			{ title: "pi_id" },
-			{ title: "date_time" },
-			{ title: "decibels" }
+			{ title: "Device Identifier" },
+			{ title: "Date/Time of occurence" },
+			{ title: "Decibel Level" }
 	]
 });
 
@@ -12,20 +12,11 @@ window.onload = function() {
 
 	socket.on('snoreDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
-		updateAllDataArrays(dataPoint);
-		updateChart($('#currentSetting')[0].text);
 	});
 
 	window.onbeforeunload = function(e) {
 	  socket.disconnect();
 	};
-
-	if (Cookies.get('currentDevice') === undefined) {
-		Cookies.set('currentDevice', nodeArray[0], {
-			expires: 7
-		});
-	}
-	$('#currentDevice').text(Cookies.get('currentDevice'));
 
 	for (var i = 0; i < nodeArray.length; i++) {
 		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
@@ -42,9 +33,13 @@ window.onload = function() {
 
 		$(".dropdown dt a span").html(text);
 		$(".dropdown dd ul").hide();
-
-		Cookies.set('currentDevice', text);
-		console.log(text);
+		if(text.indexOf("All") !== -1) {
+			$("#snoring-table_filter > label > input[type=\"search\"]").val("");
+			$("#snoring-table_filter > label > input[type=\"search\"]").trigger(jQuery.Event('keypress', { keycode: 32 }));
+		} else {
+			$("#snoring-table_filter > label > input[type=\"search\"]").val(text);
+			$("#snoring-table_filter > label > input[type=\"search\"]").trigger(jQuery.Event('keypress', { keycode: 32 }));
+		}
 	});
 
 };
