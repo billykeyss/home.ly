@@ -20,7 +20,7 @@ const gaugeOptions = {
 
 window.onload = function() {
 	if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
-		Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
+		Cookies.set(DEVICE_COOKIE_VALUE, "totalSnoreObject", {
 			expires: 7
 		});
 	}
@@ -54,8 +54,6 @@ window.onload = function() {
 		]
 	});
 
-
-
 	$('#current-device').text(Cookies.get(DEVICE_COOKIE_VALUE));
 
 	for (var i = 0; i < nodeArray.length; i++) {
@@ -74,12 +72,8 @@ window.onload = function() {
 		$(".dropdown dt a span").html(text);
 		$(".dropdown dd ul").hide();
 		if (text.indexOf("All") !== -1) {
-			// $("#snoring-table_filter > label > input[type=\"search\"]").val("");
-			// $("#snoring-table_filter > label > input[type=\"search\"]").trigger(jQuery.Event('keypress', { keycode: 32 }));
 			Cookies.set(DEVICE_COOKIE_VALUE, "totalSnoreObject");
 		} else {
-			// $("#snoring-table_filter > label > input[type=\"search\"]").val(text);
-			// $("#snoring-table_filter > label > input[type=\"search\"]").trigger(jQuery.Event('keypress', { keycode: 32 }));
 			Cookies.set(DEVICE_COOKIE_VALUE, text);
 		}
 		updateStats();
