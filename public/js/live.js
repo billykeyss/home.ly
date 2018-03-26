@@ -1,13 +1,14 @@
-const COOKIE_VALUE = 'currentDevice';
+const DEVICE_COOKIE_VALUE = 'currentDevice';
 
 function updateDataValues(dataPoint) {
-	lastDataItemArray[Cookies.get(COOKIE_VALUE)].humidity = dataPoint.humidity;
-	lastDataItemArray[Cookies.get(COOKIE_VALUE)].pressure = dataPoint.pressure;
-	lastDataItemArray[Cookies.get(COOKIE_VALUE)].temperature = dataPoint.temperature;
+	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].humidity = dataPoint.humidity;
+	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].pressure = dataPoint.pressure;
+	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].temperature = dataPoint.temperature;
 
-	console.log(lastDataItemArray);
+	console.log(dataPoint.pi_ID);
+	console.log(Cookies.get(DEVICE_COOKIE_VALUE));
 
-	if(dataPoint.type = Cookies.get(COOKIE_VALUE)) {
+	if(dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE)) {
 		let pressure = dataPoint.pressure.toFixed(2);
 		let humidity = dataPoint.humidity.toFixed(2);
 		let temperature = dataPoint.temperature.toFixed(2);
@@ -23,13 +24,13 @@ function updateDataValues(dataPoint) {
 }
 
 function refreshValuesDeviceUpdate() {
-	window.humidityGauge.set(lastDataItemArray[Cookies.get(COOKIE_VALUE)].humidity); // set actual value
-	window.temperatureGauge.set(lastDataItemArray[Cookies.get(COOKIE_VALUE)].temperature); // set actual value
-	window.pressureGauge.set(lastDataItemArray[Cookies.get(COOKIE_VALUE)].pressure); // set actual value
+	window.humidityGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].humidity); // set actual value
+	window.temperatureGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].temperature); // set actual value
+	window.pressureGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].pressure); // set actual value
 
-	$("#pressure-preview").text(lastDataItemArray[Cookies.get(COOKIE_VALUE)].pressure);
-	$("#temperature-preview").text(lastDataItemArray[Cookies.get(COOKIE_VALUE)].temperature);
-	$("#humidity-preview").text(lastDataItemArray[Cookies.get(COOKIE_VALUE)].humidity);
+	$("#pressure-preview").text(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].pressure);
+	$("#temperature-preview").text(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].temperature);
+	$("#humidity-preview").text(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].humidity);
 }
 
 function buildHumidityGauge() {
@@ -68,7 +69,7 @@ function buildHumidityGauge() {
 	window.humidityGauge.maxValue = 100; // set max gauge value
 	window.humidityGauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
 	window.humidityGauge.animationSpeed = 32; // set animation speed (32 is default value)
-	window.humidityGauge.set(lastDataItemArray[Cookies.get(COOKIE_VALUE)].humidity); // set actual value
+	window.humidityGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].humidity); // set actual value
 }
 
 function buildPressureGauge() {
@@ -108,7 +109,7 @@ function buildPressureGauge() {
 	window.pressureGauge.maxValue = 180; // set max gauge value
 	window.pressureGauge.setMinValue(20);  // Prefer setter over gauge.minValue = 0
 	window.pressureGauge.animationSpeed = 32; // set animation speed (32 is default value)
-	window.pressureGauge.set(lastDataItemArray[Cookies.get(COOKIE_VALUE)].pressure); // set actual value
+	window.pressureGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].pressure); // set actual value
 }
 
 function buildTemperatureGauge() {
@@ -147,7 +148,7 @@ function buildTemperatureGauge() {
 	window.temperatureGauge.setTextField(document.getElementById("temperature-textfield"));
 	window.temperatureGauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
 	window.temperatureGauge.animationSpeed = 32; // set animation speed (32 is default value)
-	window.temperatureGauge.set(lastDataItemArray[Cookies.get(COOKIE_VALUE)].temperature); // set actual value
+	window.temperatureGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].temperature); // set actual value
 }
 
 window.onload = function() {
@@ -163,8 +164,8 @@ window.onload = function() {
 	};
 
 
-	if (Cookies.get(COOKIE_VALUE) === undefined) {
-		Cookies.set(COOKIE_VALUE, nodeArray[0], {
+	if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
+		Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
 			expires: 7
 		});
 	}
@@ -174,9 +175,7 @@ window.onload = function() {
 	buildHumidityGauge();
 	refreshValuesDeviceUpdate();
 
-
-
-	$('#current-device').text(Cookies.get(COOKIE_VALUE));
+	$('#current-device').text(Cookies.get(DEVICE_COOKIE_VALUE));
 
 	for (var i = 0; i < nodeArray.length; i++) {
 		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
@@ -194,7 +193,7 @@ window.onload = function() {
 		$(".dropdown dt a span").html(text);
 		$(".dropdown dd ul").hide();
 
-		Cookies.set(COOKIE_VALUE, text);
+		Cookies.set(DEVICE_COOKIE_VALUE, text);
 		refreshValuesDeviceUpdate();
 	});
 

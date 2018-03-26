@@ -41,3 +41,105 @@ tbody tr {
 .device-group {
   z-index: 1;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+.content {
+  width: 100%;
+  padding: 50px;
+  background-color: #e6e6e6;
+}
+
+.feed-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1170px;
+  margin: 5% auto;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+}
+
+.card-half {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 300px;
+  height: 200px;
+  margin: 5%;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 5px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+  box-sizing: initial;
+
+}
+
+.wide {
+  width: 480px;
+}
+
+.card-img {
+  position: relative;
+  display: table;
+  margin: auto;
+  /* height: 160px; */
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+
+}
+
+.card-text {
+  padding: 0 20px;
+}
+.card-text h4 {
+  margin: 0;
+  padding: 0;
+  color: white;
+  text-align: center;
+}
+
+.canvas-center {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

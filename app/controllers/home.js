@@ -106,34 +106,52 @@ router.get('/snore', (req, res, next) => {
 		var dataArray = data.Items;
 		var sortedDataArray = dataUtils.groupBy(dataArray, 'pi_id');
 		var tableDataArray = [];
-		var countSnoreLastHour = 0;
-		var countSnoreLastDay = 0;
-		var countSnoreLastWeek = 0;
+		var countSnoreObject = {}
+
+		var totalSnoreObject = {
+			countSnoreLastHour: 0,
+			countSnoreLastDay: 0,
+			countSnoreLastWeek: 0,
+			loudestSnore: 0
+		};
 
 		for (var i in sortedDataArray) {
+			countSnoreObject[i] = {
+				countSnoreLastHour: 0,
+				countSnoreLastDay: 0,
+				countSnoreLastWeek: 0,
+				loudestSnore: 0
+			}
 			sortedDataArray[i].forEach(function(arrayItem) {
+				if(arrayItem.decibels > countSnoreObject[i].loudestSnore) {
+					countSnoreObject[i].loudestSnore = arrayItem.decibels.toFixed(2);
+				}
+				if(arrayItem.decibels > totalSnoreObject.loudestSnore) {
+					totalSnoreObject.loudestSnore = arrayItem.decibels.toFixed(2);
+				}
 				tableDataArray.push([arrayItem.pi_id, dataUtils.convertUnixToMomentStringTable(arrayItem.date_time), arrayItem.decibels.toFixed(2)]);
 				if ((Date.now() / 1000) < ((arrayItem.date_time + 24 * 60 * 60))) {
-					countSnoreLastDay++;
+					countSnoreObject[i].countSnoreLastDay++;
+					totalSnoreObject.countSnoreLastDay++;
 				}
 				if ((Date.now() / 1000) < (arrayItem.date_time + 7 * 24 * 60 * 60)) {
-					countSnoreLastWeek++;
+					countSnoreObject[i].countSnoreLastWeek++;
+					totalSnoreObject.countSnoreLastWeek++;
 				}
 				if ((Date.now() / 1000) < (arrayItem.date_time + 60 * 60)) {
-					countSnoreLastHour++;
+					countSnoreObject[i].countSnoreLastHour++;
+					totalSnoreObject.countSnoreLastHour++;
 				}
 			});
 		}
+
+		countSnoreObject['totalSnoreObject'] = totalSnoreObject;
 
 		res.render('snore', {
 			data: JSON.stringify(sortedDataArray),
 			nodeArray: JSON.stringify(Object.keys(sortedDataArray)),
 			tableData: JSON.stringify(tableDataArray),
-			countSnore: JSON.stringify({
-				countSnoreLastDay: countSnoreLastDay,
-				countSnoreLastHour: countSnoreLastHour,
-				countSnoreLastWeek: countSnoreLastWeek
-			})
+			snoreStats: JSON.stringify(countSnoreObject)
 		});
 	});
 });

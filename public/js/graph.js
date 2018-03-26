@@ -1,4 +1,4 @@
-const COOKIE_VALUE = 'currentDevice';
+const DEVICE_COOKIE_VALUE = 'currentDevice';
 
 function updateAllDataArrays(dataPoint) {
 	updateArrayWithDatapoint(lastDayDataArray, dataPoint);
@@ -17,13 +17,13 @@ function updateArrayWithDatapoint(array, dataPoint) {
 function updateChart(text) {
 	var ctx1 = document.getElementById("data-chart").getContext("2d");
 	if (text.indexOf("Day") !== -1) {
-		buildChart(ctx1, buildChartData(lastDayDataArray, Cookies.get(COOKIE_VALUE)));
+		buildChart(ctx1, buildChartData(lastDayDataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
 	} else if (text.indexOf("Week") !== -1) {
-		buildChart(ctx1, buildChartData(lastWeekDataArray, Cookies.get(COOKIE_VALUE)));
+		buildChart(ctx1, buildChartData(lastWeekDataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
 	} else if (text.indexOf("Month") !== -1) {
-		buildChart(ctx1, buildChartData(lastMonthDataArray, Cookies.get(COOKIE_VALUE)));
+		buildChart(ctx1, buildChartData(lastMonthDataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
 	} else if (text.indexOf("Time") !== -1) {
-		buildChart(ctx1, buildChartData(dataArray, Cookies.get(COOKIE_VALUE)));
+		buildChart(ctx1, buildChartData(dataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
 	}
 }
 
@@ -137,12 +137,12 @@ window.onload = function() {
 
 	var ctx1 = document.getElementById("data-chart").getContext("2d");
 	buildChart(ctx1, buildChartData(dataArray, "simNodeDevice"));
-	if (Cookies.get(COOKIE_VALUE) === undefined) {
-		Cookies.set(COOKIE_VALUE, nodeArray[0], {
+	if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
+		Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
 			expires: 7
 		});
 	}
-	$('#current-device').text(Cookies.get(COOKIE_VALUE));
+	$('#current-device').text(Cookies.get(DEVICE_COOKIE_VALUE));
 
 	for (var i = 0; i < nodeArray.length; i++) {
 		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
@@ -160,7 +160,7 @@ window.onload = function() {
 		$(".dropdown dt a span").html(text);
 		$(".dropdown dd ul").hide();
 
-		Cookies.set(COOKIE_VALUE, text);
+		Cookies.set(DEVICE_COOKIE_VALUE, text);
 		updateChart($('#current-setting')[0].text);
 	});
 
