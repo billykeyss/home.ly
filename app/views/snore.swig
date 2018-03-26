@@ -56,19 +56,6 @@
       <h1 style="float:left; color:white; padding-left: 5%;">
         Snoring Analytics Dashboard
       </h1>
-    </div>
-    <div class="row">
-      <table id="snoring-table" class="hover">
-        <thead>
-          <th class="text-align-left"></th>
-          <th class="text-align-left"></th>
-          <th class="text-align-left"></th>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-    <div class="row" style="min-height: 2.0em">
       <dl id='device-selector' class="dropdown dropdown-style" style="float:right; margin-right:5%;">
         <dt>
             <a href="#"><span id="current-device">Select Device</span></a>
@@ -115,6 +102,22 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="row" style="min-height: 2.0em">
+      <h1 style="float:left; color:white; padding-left: 5%;">
+        Snoring DataTable
+      </h1>
+    </div>
+    <div class="row">
+      <table id="snoring-table" class="hover">
+        <thead>
+          <th class="text-align-left"></th>
+          <th class="text-align-left"></th>
+          <th class="text-align-left"></th>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     </div>
   </div>
 
