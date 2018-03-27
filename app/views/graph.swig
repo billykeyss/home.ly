@@ -50,6 +50,8 @@
           <i class="fa fa-bed"></i>Snoring Analytics</a>
       </li>
     </ul>
+    <p class="toggle-label"> Auto Update</p>
+    <a href="#" class="toggle toggle--on"></a>
   </aside>
   <div class="dashboard">
     <div class="row" style="min-height: 2.0em">

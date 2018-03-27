@@ -28,10 +28,12 @@ window.onload = function() {
 	var socket = io.connect();
 	socket.on('snoreDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
-		if (dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE) || Cookies.get(DEVICE_COOKIE_VALUE) == "totalSnoreObject") {
-			updateStats(dataPoint);
+		if(Cookies.get("autoUpdate") === "true") {
+			if (dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE) || Cookies.get(DEVICE_COOKIE_VALUE) == "totalSnoreObject") {
+				updateStats(dataPoint);
+			}
+			updateDataTable(dataPoint);
 		}
-		updateDataTable(dataPoint);
 	});
 	window.onbeforeunload = function(e) {
 		socket.disconnect();
@@ -79,11 +81,21 @@ window.onload = function() {
 		updateStats();
 	});
 
+	if(Cookies.get("autoUpdate") == "true") {
+		$('.toggle').addClass('toggle--on');
+		$('.toggle').removeClass('toggle--off');
+	} else if (Cookies.get("autoUpdate") == "false") {
+		$('.toggle').removeClass('toggle--on');
+		$('.toggle').addClass('toggle--off');
+	} else {
+		Cookies.set("autoUpdate", "true");
+	}
+
 	updateStats();
 };
 
 function updateDataTable(dataPoint) {
-	tableDataArray.push([dataPoint.pi_ID, dataPoint.date_time, dataPoint.decibels])
+	tableDataArray.push([dataPoint.pi_ID, dataPoint.date_time, dataPoint.decibels.toFixed(2)])
 	$("#snoring-table").DataTable().destroy()
 	$('#snoring-table').DataTable({
 		data: tableDataArray,
@@ -148,3 +160,25 @@ function updateStats(dataPoint) {
 		progressBarColor: "#003399"
 	});
 }
+
+
+$('.toggle').click(function(e) {
+  var toggle = this;
+
+  e.preventDefault();
+
+  $(toggle).toggleClass('toggle--on')
+         .toggleClass('toggle--off')
+         .addClass('toggle--moving');
+
+	let shouldToggle = Cookies.get("autoUpdate");
+	if($(toggle).hasClass("toggle--on")) {
+		Cookies.set("autoUpdate", "true");
+	} else {
+		Cookies.set("autoUpdate", "false");
+	}
+
+  setTimeout(function() {
+    $(toggle).removeClass('toggle--moving');
+  }, 200)
+});

@@ -128,7 +128,9 @@ window.onload = function() {
 	socket.on('homeDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
 		updateAllDataArrays(dataPoint);
-		updateChart($('#current-setting')[0].text);
+		if(Cookies.get("autoUpdate") === "true") {
+			updateChart($('#current-setting')[0].text);
+		}
 	});
 
 	window.onbeforeunload = function(e) {
@@ -164,4 +166,34 @@ window.onload = function() {
 		updateChart($('#current-setting')[0].text);
 	});
 
+	if(Cookies.get("autoUpdate") == "true") {
+		$('.toggle').addClass('toggle--on');
+		$('.toggle').removeClass('toggle--off');
+	} else if (Cookies.get("autoUpdate") == "false") {
+		$('.toggle').removeClass('toggle--on');
+		$('.toggle').addClass('toggle--off');
+	} else {
+		Cookies.set("autoUpdate", "true");
+	}
 };
+
+$('.toggle').click(function(e) {
+  var toggle = this;
+
+  e.preventDefault();
+
+  $(toggle).toggleClass('toggle--on')
+         .toggleClass('toggle--off')
+         .addClass('toggle--moving');
+
+	let shouldToggle = Cookies.get("autoUpdate");
+	if($(toggle).hasClass("toggle--on")) {
+		Cookies.set("autoUpdate", "true");
+	} else {
+		Cookies.set("autoUpdate", "false");
+	}
+
+  setTimeout(function() {
+    $(toggle).removeClass('toggle--moving');
+  }, 200)
+});
