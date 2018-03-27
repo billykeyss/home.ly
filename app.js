@@ -13,8 +13,6 @@ const EventHubClient = require('azure-event-hubs').Client;
 const connectionString = process.env.CONN_STRING;
 const moment = require('moment');
 const app = express();
-const dataUtils = require('./app/utils/data_utils.js');
-
 
 module.exports = require('./config/express')(app, config);
 
@@ -46,7 +44,7 @@ client.open()
 					};
 
 					let dateTime = data.date_time;
-					data.date_time = dataUtils.convertUnixToMomentStringTable(dateTime);
+					data.date_time = moment(dateTime * 1000).format("dddd, MMMM Do YYYY, H:mm:ss")
 					if (data.type == 'snore') {
 						io.sockets.emit('snoreDataUpdate', data);
 					} else if (data.type == 'home') {

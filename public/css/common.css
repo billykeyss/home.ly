@@ -22,7 +22,6 @@ header {
   width: 100%;
   margin-top: 41px;
 }
-
 .row p {
   float: left;
   color: #FFF;
@@ -31,13 +30,14 @@ header {
   font-size: 0.875rem;
 }
 
+
+
 aside {
   background: #233140;
   width: 20%;
   height: 100vh;
   position: fixed;
 }
-
 aside h1 {
   font-family: 'Pacifico', cursive;
   color: #FFF;
@@ -46,26 +46,21 @@ aside h1 {
   font-size: 40px;
   font-size: 2.5rem;
 }
-
 aside ul {
   margin: 40px 0;
 }
-
 aside li {
   list-style: none;
   padding: 9px;
   margin-top: 10px;
   transition: all ease 0.4s;
 }
-
 aside li.active {
   background: #1a252f;
 }
-
 aside li:hover {
   background: #1a252f;
 }
-
 aside a {
   color: #FFF;
   text-decoration: none;
@@ -88,65 +83,50 @@ aside a {
   aside {
     /* visibility: hidden; */
   }
+
   .dashboard {
     width: 100%;
     margin-top: 50px;
   }
 }
 
+
+
 /* Dropdown */
 
 /* General dropdown styles */
-
-.dropdown-style dd, .dropdown-style dt, .dropdown-style ul {
-  margin: 0px;
-  padding: 0px;
-}
-
-.dropdown-style dd {
-  position: relative;
-}
+.dropdown-style dd, .dropdown-style dt, .dropdown-style ul { margin:0px; padding:0px; }
+.dropdown-style dd { position:relative; }
 
 /* DT styles for sliding doors */
-
 .dropdown-style dt a {
   color: #FFF;
   text-align: center;
-  background: #1EAA8D url('http://www.jankoatwarpspeed.com/wp-content/uploads/examples/reinventing-drop-down/arrow.png') no-repeat scroll 180px center;
+  background:#1EAA8D url('http://www.jankoatwarpspeed.com/wp-content/uploads/examples/reinventing-drop-down/arrow.png') no-repeat scroll 180px center;
   display: block;
-  padding-right: 20px;
+  padding-right:20px;
   width: 180px;
   text-decoration: none;
   line-height: 2.0em;
 }
-
 .dropdown-style dt a span {
-  cursor: pointer;
-  display: block;
-  padding: 5px;
+  cursor:pointer;
+  display:block;
+  padding:5px;
   color: #FFF;
   text-decoration: none;
 }
-
 /* UL styles */
-
 .dropdown-style dd ul {
-  background: #1EAA8D none repeat scroll 0 0;
-  display: none;
-  list-style: none;
-  padding: 5px 0px;
-  position: absolute;
+  background:#1EAA8D none repeat scroll 0 0; display:none;
+  list-style:none; padding:5px 0px; position:absolute;
   left: 0px;
   top: 2px;
   width: 100%;
-  min-width: 170px;
+  min-width:170px;
   line-height: 2.0em;
 }
-
-.dropdown-style span.value {
-  display: none;
-}
-
+.dropdown-style span.value { display:none;}
 .dropdown-style dd ul li a {
   padding: 5px;
   display: block;
@@ -155,83 +135,10 @@ aside a {
   text-decoration: none;
   text-align: center;
 }
-
-.dropdown-style dd ul li a:hover {
-  background-color: #2b9c84;
+.dropdown-style dd ul li a:hover{
+  background-color: #2b9c84 ;
   color: #FFF;
   text-decoration: none;
 }
 
-.dropdown-style span.value {
-  display: none;
-}
-
-.toggle {
-  position: relative;
-  display: block;
-  margin: 0 auto;
-  width: 150px;
-  height: 60px;
-  color: white;
-  outline: 0;
-  text-decoration: none;
-  border-radius: 100px;
-  border: 2px solid #546E7A;
-  background-color: #263238;
-  transition: all 500ms;
-}
-
-.toggle:active {
-  background-color: #1c2429;
-}
-
-.toggle:hover:not(.toggle--moving):after {
-  background-color: #455A64;
-}
-
-.toggle:after {
-  display: block;
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 4px;
-  width: calc(50% - 4px);
-  line-height: 45px;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 20px;
-  color: white;
-  background-color: #37474F;
-  border: 2px solid;
-  transition: all 500ms;
-}
-
-.toggle--on:after {
-  content: 'On';
-  border-radius: 50px 5px 5px 50px;
-  color: #66BB6A;
-}
-
-.toggle--off:after {
-  content: 'Off';
-  border-radius: 5px 50px 50px 5px;
-  transform: translate(90%, 0);
-  color: #f44336;
-}
-
-.toggle--moving {
-  background-color: #1c2429;
-}
-
-.toggle--moving:after {
-  color: transparent;
-  border-color: #435862;
-  background-color: #222c31;
-  transition: color 0s, transform 500ms, border-radius 500ms, background-color 500ms;
-}
-
-.toggle-label {
-  color: white;
-  margin: 15px;
-  text-align: center;
-}
+.dropdown-style span.value { display:none; }

@@ -5,6 +5,9 @@ function updateDataValues(dataPoint) {
 	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].pressure = dataPoint.pressure;
 	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].temperature = dataPoint.temperature;
 
+	console.log(dataPoint.pi_ID);
+	console.log(Cookies.get(DEVICE_COOKIE_VALUE));
+
 	if(dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE)) {
 		let pressure = dataPoint.pressure.toFixed(2);
 		let humidity = dataPoint.humidity.toFixed(2);
@@ -153,9 +156,7 @@ window.onload = function() {
 
 	socket.on('homeDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
-		if(Cookies.get("autoUpdate") === "true") {
-			updateDataValues(dataPoint);
-		}
+		updateDataValues(dataPoint);
 	});
 
 	window.onbeforeunload = function(e) {
@@ -195,34 +196,5 @@ window.onload = function() {
 		Cookies.set(DEVICE_COOKIE_VALUE, text);
 		refreshValuesDeviceUpdate();
 	});
-	if(Cookies.get("autoUpdate") == "true") {
-		$('.toggle').addClass('toggle--on');
-		$('.toggle').removeClass('toggle--off');
-	} else if (Cookies.get("autoUpdate") == "false") {
-		$('.toggle').removeClass('toggle--on');
-		$('.toggle').addClass('toggle--off');
-	} else {
-		Cookies.set("autoUpdate", "true");
-	}
+
 };
-
-$('.toggle').click(function(e) {
-  var toggle = this;
-
-  e.preventDefault();
-
-  $(toggle).toggleClass('toggle--on')
-         .toggleClass('toggle--off')
-         .addClass('toggle--moving');
-
-	let shouldToggle = Cookies.get("autoUpdate");
-	if($(toggle).hasClass("toggle--on")) {
-		Cookies.set("autoUpdate", "true");
-	} else {
-		Cookies.set("autoUpdate", "false");
-	}
-
-  setTimeout(function() {
-    $(toggle).removeClass('toggle--moving');
-  }, 200)
-});
