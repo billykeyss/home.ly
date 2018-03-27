@@ -1,4 +1,5 @@
 const DEVICE_COOKIE_VALUE = 'currentDevice';
+var shouldAutoUpdate = true;
 
 function updateDataValues(dataPoint) {
 	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].humidity = dataPoint.humidity;
@@ -68,7 +69,6 @@ function buildHumidityGauge() {
 	window.humidityGauge.animationSpeed = 32; // set animation speed (32 is default value)
 	window.humidityGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].humidity); // set actual value
 }
-
 function buildPressureGauge() {
 	var pressureOpts = {
 		angle: -0.2,
@@ -108,7 +108,6 @@ function buildPressureGauge() {
 	window.pressureGauge.animationSpeed = 32; // set animation speed (32 is default value)
 	window.pressureGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].pressure); // set actual value
 }
-
 function buildTemperatureGauge() {
 	var temperatureOpts = {
 		angle: -0.2,
@@ -153,7 +152,7 @@ window.onload = function() {
 
 	socket.on('homeDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
-		if(Cookies.get("autoUpdate") === "true") {
+		if(shouldAutoUpdate) {
 			updateDataValues(dataPoint);
 		}
 	});
@@ -161,7 +160,6 @@ window.onload = function() {
 	window.onbeforeunload = function(e) {
 	  socket.disconnect();
 	};
-
 
 	if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
 		Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
@@ -195,15 +193,6 @@ window.onload = function() {
 		Cookies.set(DEVICE_COOKIE_VALUE, text);
 		refreshValuesDeviceUpdate();
 	});
-	if(Cookies.get("autoUpdate") == "true") {
-		$('.toggle').addClass('toggle--on');
-		$('.toggle').removeClass('toggle--off');
-	} else if (Cookies.get("autoUpdate") == "false") {
-		$('.toggle').removeClass('toggle--on');
-		$('.toggle').addClass('toggle--off');
-	} else {
-		Cookies.set("autoUpdate", "true");
-	}
 };
 
 $('.toggle').click(function(e) {
@@ -215,11 +204,10 @@ $('.toggle').click(function(e) {
          .toggleClass('toggle--off')
          .addClass('toggle--moving');
 
-	let shouldToggle = Cookies.get("autoUpdate");
-	if($(toggle).hasClass("toggle--on")) {
-		Cookies.set("autoUpdate", "true");
+	if($(toggle).hasClass('toggle--on')) {
+		shouldAutoUpdate = true;
 	} else {
-		Cookies.set("autoUpdate", "false");
+		shouldAutoUpdate = false;
 	}
 
   setTimeout(function() {

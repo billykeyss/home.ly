@@ -1,6 +1,7 @@
 canvas {
   margin: -50px -5px;
   width: 101% !important;
+  background-color: #effffd !important;
 }
 
 .fa {
@@ -31,4 +32,29 @@ canvas {
     width: 50%;
     float: left;
     margin: 0 16px;
+}
+
+.dashboard {
+  background: #effffd !important;
+}
+
+.legend {
+	background-color: transparent;
+  position:absolute;
+  bottom:0;
+  height: 75px;
+}
+.legendText {
+	font-size: 11px;
+	fill: #777;
+	font-weight: bold;
+}
+.one {
+  fill: rgb(48,179,45);
+}
+.two {
+  fill: rgb(255,221,0);
+}
+.three {
+  fill: rgb(240,62,62);
 }

@@ -49,8 +49,11 @@
         <a href="/snore">
           <i class="fa fa-bed"></i>Snoring Analytics</a>
       </li>
+      <li class="">
+        <a href="/map">
+          <i class="fa fa-globe"></i>Device Tracking</a>
+      </li>
     </ul>
-    <p class="toggle-label"> Auto Update</p>
     <a href="#" class="toggle toggle--on"></a>
   </aside>
   <div class="dashboard">

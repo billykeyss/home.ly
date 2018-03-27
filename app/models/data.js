@@ -109,7 +109,9 @@ module.exports = {
 					humidity: data.humidity,
 					pi_id: data.pi_ID,
 					pressure: data.pressure,
-					date_time: data.date_time
+					date_time: data.date_time,
+					longitude: data.longitude,
+					latitude: data.latitude
 				}
 			};
 

@@ -9,12 +9,11 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const config = require('./config/config');
 const Data = require('./app/models/data');
+const dataUtils = require('./app/utils/data_utils');
 const EventHubClient = require('azure-event-hubs').Client;
 const connectionString = process.env.CONN_STRING;
 const moment = require('moment');
 const app = express();
-const dataUtils = require('./app/utils/data_utils.js');
-
 
 module.exports = require('./config/express')(app, config);
 
@@ -46,7 +45,12 @@ client.open()
 					};
 
 					let dateTime = data.date_time;
-					data.date_time = dataUtils.convertUnixToMomentStringTable(dateTime);
+					data.date_time = dataUtils.convertUnixToMomentString(dateTime);
+					// io.sockets.emit('deviceGPSUpdate', {
+					// 	pi_ID: data.pi_ID,
+					// 	latitude: data.latitude,
+					// 	longitude: data.longitude
+					// })
 					if (data.type == 'snore') {
 						io.sockets.emit('snoreDataUpdate', data);
 					} else if (data.type == 'home') {
