@@ -142,3 +142,11 @@ aside a {
 }
 
 .dropdown-style span.value { display:none; }
+
+.canvas-center {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

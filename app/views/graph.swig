@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <title>homely Analytics</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/graph.css">
   <link rel="stylesheet" href="/css/common.css">
   <!-- Google Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Pacifico' rel='stylesheet' type='text/css'>
@@ -50,6 +50,20 @@
           <i class="fa fa-bed"></i>Snoring Analytics</a>
       </li>
     </ul>
+    <svg class="legend">
+      <g transform="translate(30,30)">
+        <circle r="15" class="one" />
+        <text class="legendText" dx="0" dy="30" text-anchor="middle">Good</text>
+      </g>
+      <g transform="translate(90,30)">
+        <circle r="15" class="two" />
+        <text class="legendText" dx="0" dy="30" text-anchor="middle">Borderline</text>
+      </g>
+      <g transform="translate(150,30)">
+        <circle r="15" class="three" />
+        <text class="legendText" dx="0" dy="30" text-anchor="middle">Alert</text>
+      </g>
+    </svg>
   </aside>
   <div class="dashboard">
     <div class="row" style="min-height: 2.0em">

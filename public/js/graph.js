@@ -30,35 +30,88 @@ function updateChart(text) {
 function buildChartData(data, key) {
 	var timeFormat = 'dddd, MMMM Do YYYY, H:mm:ss';
 
+	var greenStatus = "rgb(48,179,45)";
+	var greenStatusBackground = "rgb(48,179,45, 0.0)";
+	var yellowStatus = "rgb(255,221,0)";
+	var yellowStatusBackground = "rgb(255,221,0, 0.0)";
+	var redStatus = "rgb(240,62,62)";
+	var redStatusBackground = "rgb(240,62,62,0.0)";
+
+	let humidityValue = data[key].humidity[data[key].humidity.length-1];
+	let temperatureValue = data[key].temperature[data[key].temperature.length-1];
+	let pressureValue = data[key].pressure[data[key].pressure.length-1];
+
+	var humidityBorder = greenStatus;
+	var humidityBackground = greenStatusBackground;
+	var temperatureBorder = redStatus;
+	var temperatureBackground = redStatusBackground;
+	var pressureBorder = redStatus;
+	var pressureBackground = redStatusBackground;
+
+	if(humidityValue > 30 && humidityValue < 50) {
+		humidityBackground = greenStatusBackground;
+		humidityBorder = greenStatus;
+	} else if ((humidityValue > 50 && humidityValue < 90) || (humidityValue > 10 && humidityValue < 30)) {
+		humidityBackground = yellowStatusBackground;
+		humidityBorder = yellowStatus;
+	} else {
+		humidityBackground = redStatusBackground;
+		humidityBorder = redStatus;
+	}
+
+	if(temperatureValue > 20 && temperatureValue < 30) {
+		temperatureBackground = greenStatusBackground;
+		temperatureBorder = greenStatus;
+	} else if ((temperatureValue > 30 && temperatureValue < 40) || (temperatureValue > 10 && temperatureValue < 20)) {
+		temperatureBackground = yellowStatusBackground;
+		temperatureBorder = yellowStatus;
+	} else {
+		temperatureBackground = redStatusBackground;
+		temperatureBorder = redStatus;
+	}
+
+	if(pressureValue > 90 && pressureValue < 110) {
+		pressureBackground = greenStatusBackground;
+		pressureBorder = greenStatus;
+	} else if ((pressureValue > 110 && pressureValue < 140) || (pressureValue > 60 && pressureValue < 90)) {
+		pressureBackground = yellowStatusBackground;
+		pressureBorder = yellowStatus;
+	} else {
+		pressureBackground = redStatusBackground;
+		pressureBorder = redStatus;
+	}
+
 	// Line Chart
 	var lineChartData = {
 		labels: data[key].labels,
 		datasets: [{
 				label: "Humidity",
-				backgroundColor: [
-					'rgba(155, 89, 182, 0.1)'
-				],
 				borderColor: [
-					'rgba(155, 89, 182, 0.9)'
+					humidityBorder
 				],
-				data: data[key].humidity
+				backgroundColor: [
+					humidityBackground
+				],
+				data: data[key].humidity,
+				 borderDash: [20,10]
 			}, {
 				label: "Temperature",
-				backgroundColor: [
-					'rgba(41, 128, 185, 0.1)'
-				],
 				borderColor: [
-					'rgba(41, 128, 185, 0.9)'
+					temperatureBorder
 				],
-				data: data[key].temperature
+				backgroundColor: [
+					temperatureBackground
+				],
+				data: data[key].temperature,
+				borderDash: [10,5]
 			},
 			{
 				label: "Pressure",
-				backgroundColor: [
-					'rgba(12, 80, 30, 0.1)'
-				],
 				borderColor: [
-					'rgba(12, 100, 40, 0.9)'
+					pressureBorder
+				],
+				backgroundColor: [
+					pressureBackground
 				],
 				data: data[key].pressure
 			}
@@ -73,6 +126,13 @@ function buildChart(ctx, chartData) {
 		type: 'line',
 		data: chartData,
 		options: {
+			legend: {
+				display: true,
+				labels: {
+					fontSize: 24,
+					fontFamily: "Work Sans"
+				}
+			},
 			maintainAspectRatio: false,
 			scales: {
 				xAxes: [{
@@ -88,7 +148,10 @@ function buildChart(ctx, chartData) {
 				}],
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
+						beginAtZero: true,
+						max: 120,
+						min: 0,
+						stepSize: 5
 					},
 					scaleLabel: {
 						display: true
