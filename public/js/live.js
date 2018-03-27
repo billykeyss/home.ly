@@ -1,12 +1,10 @@
 const DEVICE_COOKIE_VALUE = 'currentDevice';
+var shouldAutoUpdate = true;
 
 function updateDataValues(dataPoint) {
 	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].humidity = dataPoint.humidity;
 	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].pressure = dataPoint.pressure;
 	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].temperature = dataPoint.temperature;
-
-	console.log(dataPoint.pi_ID);
-	console.log(Cookies.get(DEVICE_COOKIE_VALUE));
 
 	if(dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE)) {
 		let pressure = dataPoint.pressure.toFixed(2);
@@ -71,7 +69,6 @@ function buildHumidityGauge() {
 	window.humidityGauge.animationSpeed = 32; // set animation speed (32 is default value)
 	window.humidityGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].humidity); // set actual value
 }
-
 function buildPressureGauge() {
 	var pressureOpts = {
 		angle: -0.2,
@@ -111,7 +108,6 @@ function buildPressureGauge() {
 	window.pressureGauge.animationSpeed = 32; // set animation speed (32 is default value)
 	window.pressureGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].pressure); // set actual value
 }
-
 function buildTemperatureGauge() {
 	var temperatureOpts = {
 		angle: -0.2,
@@ -156,13 +152,14 @@ window.onload = function() {
 
 	socket.on('homeDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
-		updateDataValues(dataPoint);
+		if(shouldAutoUpdate) {
+			updateDataValues(dataPoint);
+		}
 	});
 
 	window.onbeforeunload = function(e) {
 	  socket.disconnect();
 	};
-
 
 	if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
 		Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
@@ -196,5 +193,24 @@ window.onload = function() {
 		Cookies.set(DEVICE_COOKIE_VALUE, text);
 		refreshValuesDeviceUpdate();
 	});
-
 };
+
+$('.toggle').click(function(e) {
+  var toggle = this;
+
+  e.preventDefault();
+
+  $(toggle).toggleClass('toggle--on')
+         .toggleClass('toggle--off')
+         .addClass('toggle--moving');
+
+	if($(toggle).hasClass('toggle--on')) {
+		shouldAutoUpdate = true;
+	} else {
+		shouldAutoUpdate = false;
+	}
+
+  setTimeout(function() {
+    $(toggle).removeClass('toggle--moving');
+  }, 200)
+});

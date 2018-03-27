@@ -1,4 +1,5 @@
 const DEVICE_COOKIE_VALUE = 'currentDevice';
+var shouldAutoUpdate = true;
 
 const gaugeOptions = {
 	angle: 0.15, // The span of the gauge arc
@@ -28,10 +29,12 @@ window.onload = function() {
 	var socket = io.connect();
 	socket.on('snoreDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
-		if (dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE) || Cookies.get(DEVICE_COOKIE_VALUE) == "totalSnoreObject") {
-			updateStats(dataPoint);
+		if(shouldAutoUpdate) {
+			if (dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE) || Cookies.get(DEVICE_COOKIE_VALUE) == "totalSnoreObject") {
+				updateStats(dataPoint);
+			}
+			updateDataTable(dataPoint);
 		}
-		updateDataTable(dataPoint);
 	});
 	window.onbeforeunload = function(e) {
 		socket.disconnect();
@@ -148,3 +151,23 @@ function updateStats(dataPoint) {
 		progressBarColor: "#003399"
 	});
 }
+
+$('.toggle').click(function(e) {
+  var toggle = this;
+
+  e.preventDefault();
+
+  $(toggle).toggleClass('toggle--on')
+         .toggleClass('toggle--off')
+         .addClass('toggle--moving');
+
+	if($(toggle).hasClass('toggle--on')) {
+		shouldAutoUpdate = true;
+	} else {
+		shouldAutoUpdate = false;
+	}
+
+  setTimeout(function() {
+    $(toggle).removeClass('toggle--moving');
+  }, 200)
+});

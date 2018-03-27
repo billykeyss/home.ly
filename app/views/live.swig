@@ -41,6 +41,7 @@
           <i class="fa fa-bed"></i>Snoring Analytics</a>
       </li>
     </ul>
+    <a href="#" class="toggle toggle--on"></a>
   </aside>
   <div class="dashboard">
     <div class="row" style="min-height: 2.0em">

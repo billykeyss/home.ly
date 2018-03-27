@@ -50,6 +50,7 @@
           <i class="fa fa-bed"></i>Snoring Analytics</a>
       </li>
     </ul>
+    <a href="#" class="toggle toggle--on"></a>
     <svg class="legend">
       <g transform="translate(30,30)">
         <circle r="15" class="one" />

@@ -1,4 +1,5 @@
 const DEVICE_COOKIE_VALUE = 'currentDevice';
+var shouldAutoUpdate = true;
 
 function updateAllDataArrays(dataPoint) {
 	updateArrayWithDatapoint(lastDayDataArray, dataPoint);
@@ -191,7 +192,9 @@ window.onload = function() {
 	socket.on('homeDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
 		updateAllDataArrays(dataPoint);
-		updateChart($('#current-setting')[0].text);
+		if(shouldAutoUpdate) {
+			updateChart($('#current-setting')[0].text);
+		}
 	});
 
 	window.onbeforeunload = function(e) {
@@ -228,3 +231,23 @@ window.onload = function() {
 	});
 
 };
+
+$('.toggle').click(function(e) {
+  var toggle = this;
+
+  e.preventDefault();
+
+  $(toggle).toggleClass('toggle--on')
+         .toggleClass('toggle--off')
+         .addClass('toggle--moving');
+
+	if($(toggle).hasClass('toggle--on')) {
+		shouldAutoUpdate = true;
+	} else {
+		shouldAutoUpdate = false;
+	}
+
+  setTimeout(function() {
+    $(toggle).removeClass('toggle--moving');
+  }, 200)
+});
