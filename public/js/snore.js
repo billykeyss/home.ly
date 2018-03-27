@@ -91,7 +91,7 @@ function updateDataTable(dataPoint) {
 				title: "Device Identifier"
 			},
 			{
-				title: "Date/Time of occurence"
+				title: "Date and Time of occurence"
 			},
 			{
 				title: "Decibel Level"
