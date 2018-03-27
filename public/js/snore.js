@@ -36,7 +36,6 @@ window.onload = function() {
 		}
 		updateStats(dataPoint);
 		updateDataTable(dataPoint);
-
 	});
 	window.onbeforeunload = function(e) {
 		socket.disconnect();
@@ -85,6 +84,7 @@ window.onload = function() {
 	});
 
 	updateStats();
+	updateVisualStats();
 };
 
 function updateDataTable(dataPoint) {
