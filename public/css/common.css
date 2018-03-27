@@ -198,6 +198,8 @@ aside a {
   content: 'On';
   border-radius: 50px 5px 5px 50px;
   color: #66BB6A;
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
 }
 
 .toggle--off:after {
@@ -215,4 +217,22 @@ aside a {
   border-color: #435862;
   background-color: #222c31;
   transition: color 0s, transform 500ms, border-radius 500ms,           background-color 500ms;
+}
+
+
+.blink {
+  animation: blink-animation 5s steps(25, start) infinite;
+  -webkit-animation: blink-animation 5s steps(25, start) infinite;
+}
+
+@keyframes blink-animation {
+    0% {
+           background-color: rgb(102,187,106, 0.5)
+    }
+    50% {
+           background-color: rgb(102,187,106, 0.1)
+    }
+    100% {
+           background-color: rgb(102,187,106, 0.5)
+    }
 }

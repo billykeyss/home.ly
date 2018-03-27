@@ -192,7 +192,7 @@ window.onload = function() {
 	socket.on('homeDataUpdate', function(dataPoint) {
 		// Received data update from socket connection
 		updateAllDataArrays(dataPoint);
-		if(shouldAutoUpdate) {
+		if(shouldAutoUpdate && dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE)) {
 			updateChart($('#current-setting')[0].text);
 		}
 	});
@@ -244,8 +244,10 @@ $('.toggle').click(function(e) {
 
 	if($(toggle).hasClass('toggle--on')) {
 		shouldAutoUpdate = true;
+		// $(toggle).addClass('blink');
 	} else {
 		shouldAutoUpdate = false;
+		// $(toggle).removeClass('blink');
 	}
 
   setTimeout(function() {
