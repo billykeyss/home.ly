@@ -156,6 +156,35 @@ router.get('/snore', (req, res, next) => {
 	});
 });
 
+router.get('/map', (req, res, next) => {
+	Data.getAllData().then(function(data) {
+		var dataArray = data.Items;
+		var sortedDataArray = dataUtils.groupBy(dataArray, 'pi_id');
+
+		var lastDataItemArray = [];
+
+		for (var i in sortedDataArray) {
+			let item = _.findLast(sortedDataArray[i], function(n) {
+				return n;
+			});
+
+			lastDataItemArray.push({
+				pi_id: i,
+				longitude: item.longitude,
+				latitude: item.latitude
+			});
+		};
+
+		_.findLast(sortedDataArray[i], function(n) {
+			return n;
+		})
+
+		res.render('map', {
+			nodeArray: JSON.stringify(Object.keys(sortedDataArray)),
+			lastDataItemArray: JSON.stringify(lastDataItemArray)
+		});
+	});
+});
 router.post('/update', (req, res) => Data.addData(req, res));
 
 router.post('/update/snore', (req, res) => Data.addSnoringData(req, res));

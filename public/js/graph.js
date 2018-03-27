@@ -209,6 +209,7 @@ window.onload = function() {
 		});
 	}
 	$('#current-device').text(Cookies.get(DEVICE_COOKIE_VALUE));
+	updateChart($('#current-setting')[0].text);
 
 	for (var i = 0; i < nodeArray.length; i++) {
 		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');

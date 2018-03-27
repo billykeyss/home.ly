@@ -45,7 +45,12 @@ client.open()
 					};
 
 					let dateTime = data.date_time;
-					data.date_time = moment(dateTime * 1000).format("dddd, MMMM Do YYYY, H:mm:ss")
+					data.date_time = dataUtils.convertUnixToMomentString(dateTime);
+					// io.sockets.emit('deviceGPSUpdate', {
+					// 	pi_ID: data.pi_ID,
+					// 	latitude: data.latitude,
+					// 	longitude: data.longitude
+					// })
 					if (data.type == 'snore') {
 						io.sockets.emit('snoreDataUpdate', data);
 					} else if (data.type == 'home') {

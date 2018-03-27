@@ -31,10 +31,12 @@ window.onload = function() {
 		// Received data update from socket connection
 		if(shouldAutoUpdate) {
 			if (dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE) || Cookies.get(DEVICE_COOKIE_VALUE) == "totalSnoreObject") {
-				updateStats(dataPoint);
+				updateVisualStats();
 			}
-			updateDataTable(dataPoint);
 		}
+		updateStats(dataPoint);
+		updateDataTable(dataPoint);
+
 	});
 	window.onbeforeunload = function(e) {
 		socket.disconnect();
@@ -121,35 +123,37 @@ function updateStats(dataPoint) {
 			snoreStatsArray.totalSnoreObject.loudestSnore = dataPoint.decibels.toFixed(2);
 		}
 	}
+}
 
-	$(".snore-hour-preview").text(snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastHour);
-	$(".snore-day-preview").text(snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastDay);
-	$(".snore-week-preview").text(snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastWeek);
-	$(".loudest-snore-preview").text(snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].loudestSnore);
+function updateVisualStats() {
+		$(".snore-hour-preview").text(snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastHour);
+		$(".snore-day-preview").text(snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastDay);
+		$(".snore-week-preview").text(snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastWeek);
+		$(".loudest-snore-preview").text(snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].loudestSnore);
 
-	$("#hour-progress").percircle({
-		text: snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastHour.toString(),
-		percent: 100,
-		progressBarColor: "#66CCFF"
-	});
+		$("#hour-progress").percircle({
+			text: snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastHour.toString(),
+			percent: 100,
+			progressBarColor: "#66CCFF"
+		});
 
-	$("#day-progress").percircle({
-		text: snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastDay.toString(),
-		percent: 100,
-		progressBarColor: "#3366CC"
-	});
+		$("#day-progress").percircle({
+			text: snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastDay.toString(),
+			percent: 100,
+			progressBarColor: "#3366CC"
+		});
 
-	$("#week-progress").percircle({
-		text: snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastWeek.toString(),
-		percent: 100,
-		progressBarColor: "#6699FF"
-	});
+		$("#week-progress").percircle({
+			text: snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].countSnoreLastWeek.toString(),
+			percent: 100,
+			progressBarColor: "#6699FF"
+		});
 
-	$("#snore-count").percircle({
-		text: snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].loudestSnore.toString(),
-		percent: 100,
-		progressBarColor: "#003399"
-	});
+		$("#snore-count").percircle({
+			text: snoreStatsArray[Cookies.get(DEVICE_COOKIE_VALUE)].loudestSnore.toString(),
+			percent: 100,
+			progressBarColor: "#003399"
+		});
 }
 
 $('.toggle').click(function(e) {
