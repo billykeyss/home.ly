@@ -32,8 +32,8 @@ function buildChartData(data, key) {
 
 	var greenStatus = "rgb(48,179,45)";
 	var greenStatusBackground = "rgb(48,179,45, 0.0)";
-	var yellowStatus = "rgb(255,221,0)";
-	var yellowStatusBackground = "rgb(255,221,0, 0.0)";
+	var yellowStatus = "rgb(253,216,49)";
+	var yellowStatusBackground = "rgb(253,216,49,0.0)";
 	var redStatus = "rgb(240,62,62)";
 	var redStatusBackground = "rgb(240,62,62,0.0)";
 
