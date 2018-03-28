@@ -242,6 +242,8 @@ $('.toggle').click(function(e) {
          .toggleClass('toggle--off')
          .addClass('toggle--moving');
 
+ 	$(".toggle-label").toggleClass("blink-text");
+
 	if($(toggle).hasClass('toggle--on')) {
 		shouldAutoUpdate = true;
 		// $(toggle).addClass('blink');

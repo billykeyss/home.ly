@@ -54,6 +54,7 @@
           <i class="fa fa-globe"></i>Device Tracking</a>
       </li>
     </ul>
+    <p class="toggle-label blink-text"> Live Tracking </p>
     <a href="#" class="toggle toggle--on"></a>
   </aside>
   <div class="dashboard">

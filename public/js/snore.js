@@ -81,6 +81,7 @@ window.onload = function() {
 			Cookies.set(DEVICE_COOKIE_VALUE, text);
 		}
 		updateStats();
+		updateVisualStats();
 	});
 
 	updateStats();
@@ -164,6 +165,9 @@ $('.toggle').click(function(e) {
   $(toggle).toggleClass('toggle--on')
          .toggleClass('toggle--off')
          .addClass('toggle--moving');
+
+
+	$(".toggle-label").toggleClass("blink-text");
 
 	if($(toggle).hasClass('toggle--on')) {
 		shouldAutoUpdate = true;
