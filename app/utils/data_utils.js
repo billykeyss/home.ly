@@ -11,10 +11,10 @@ module.exports = {
 	},
 
 	convertUnixToMomentString(unix) {
-		return moment(unix * 1000).format("dddd, MMMM Do YYYY, H:mm:ss");
+		return moment(unix * 1000).utcOffset('-0400').format("dddd, MMMM Do YYYY, H:mm:ss");
 	},
 
 	convertUnixToMomentStringTable(unix) {
-		return moment(unix * 1000).format("MMMM D YYYY, HH:mm:ss");
+		return moment(unix * 1000).utcOffset('-0400').format("MMMM D YYYY, HH:mm:ss");
 	}
 };
