@@ -1,5 +1,51 @@
-const DEVICE_COOKIE_VALUE = 'currentDevice';
-var shouldAutoUpdate = true;
+
+window.onload = function() {
+	var socket = io.connect();
+
+	socket.on('homeDataUpdate', function(dataPoint) {
+		// Received data update from socket connection
+		if(shouldAutoUpdate) {
+			updateDataValues(dataPoint);
+		}
+	});
+
+	window.onbeforeunload = function(e) {
+	  socket.disconnect();
+	};
+
+	if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
+		Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
+			expires: 7
+		});
+	}
+
+	buildTemperatureGauge();
+	buildPressureGauge();
+	buildHumidityGauge();
+	refreshValuesDeviceUpdate();
+
+	$('#current-device').text(Cookies.get(DEVICE_COOKIE_VALUE));
+
+	for (var i = 0; i < nodeArray.length; i++) {
+		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
+		$input.appendTo($(".device-group"));
+	}
+
+	$(".dropdown dt a").click(function(e) {
+		$(".dropdown dd ul").toggle();
+		e.preventDefault();
+	});
+
+	$(".dropdown dd ul li a").click(function(e) {
+		var text = $(this).html();
+
+		$(".dropdown dt a span").html(text);
+		$(".dropdown dd ul").hide();
+
+		Cookies.set(DEVICE_COOKIE_VALUE, text);
+		refreshValuesDeviceUpdate();
+	});
+};
 
 function updateDataValues(dataPoint) {
 	lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].humidity = dataPoint.humidity;
@@ -146,71 +192,3 @@ function buildTemperatureGauge() {
 	window.temperatureGauge.animationSpeed = 32; // set animation speed (32 is default value)
 	window.temperatureGauge.set(lastDataItemArray[Cookies.get(DEVICE_COOKIE_VALUE)].temperature); // set actual value
 }
-
-window.onload = function() {
-	var socket = io.connect();
-
-	socket.on('homeDataUpdate', function(dataPoint) {
-		// Received data update from socket connection
-		if(shouldAutoUpdate) {
-			updateDataValues(dataPoint);
-		}
-	});
-
-	window.onbeforeunload = function(e) {
-	  socket.disconnect();
-	};
-
-	if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
-		Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
-			expires: 7
-		});
-	}
-
-	buildTemperatureGauge();
-	buildPressureGauge();
-	buildHumidityGauge();
-	refreshValuesDeviceUpdate();
-
-	$('#current-device').text(Cookies.get(DEVICE_COOKIE_VALUE));
-
-	for (var i = 0; i < nodeArray.length; i++) {
-		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
-		$input.appendTo($(".device-group"));
-	}
-
-	$(".dropdown dt a").click(function(e) {
-		$(".dropdown dd ul").toggle();
-		e.preventDefault();
-	});
-
-	$(".dropdown dd ul li a").click(function(e) {
-		var text = $(this).html();
-
-		$(".dropdown dt a span").html(text);
-		$(".dropdown dd ul").hide();
-
-		Cookies.set(DEVICE_COOKIE_VALUE, text);
-		refreshValuesDeviceUpdate();
-	});
-};
-
-$('.toggle').click(function(e) {
-  var toggle = this;
-
-  e.preventDefault();
-
-  $(toggle).toggleClass('toggle--on')
-         .toggleClass('toggle--off')
-         .addClass('toggle--moving');
-
-	if($(toggle).hasClass('toggle--on')) {
-		shouldAutoUpdate = true;
-	} else {
-		shouldAutoUpdate = false;
-	}
-
-  setTimeout(function() {
-    $(toggle).removeClass('toggle--moving');
-  }, 200)
-});

@@ -116,6 +116,7 @@
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
   <script type="text/javascript" src="/js/libraries/gauge.min.js"></script>
+  <script type="text/javascript" src="/js/common.js"></script>
   <script type="text/javascript" src="/js/live.js"></script>
 </body>
 

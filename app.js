@@ -39,13 +39,14 @@ client.open()
 				receiver.on('message', function(message) {
 					var data = message.body;
 					if (data.type == 'snore') {
+						data.max_decibels = dataUtils.getMaxValueFromArray(data.decibel_array);
 						// Data.addSnoreDataDirectDB(data);
 					} else if (data.type == 'home') {
+						let dateTime = data.date_time;
+						data.date_time = dataUtils.convertUnixToMomentString(dateTime);
 						// Data.addDataDirectDB(data);
 					};
 
-					let dateTime = data.date_time;
-					data.date_time = dataUtils.convertUnixToMomentString(dateTime);
 					// io.sockets.emit('deviceGPSUpdate', {
 					// 	pi_ID: data.pi_ID,
 					// 	latitude: data.latitude,

@@ -26,9 +26,11 @@
     var data = "{{data}}";
     var tableData = "{{tableData}}";
     var snoreStats = "{{snoreStats}}";
+    var graphData = "{{graphData}}";
     var dataArray = JSON.parse(data.replaceAll("&quot;", "\""));
     var tableDataArray = JSON.parse(tableData.replaceAll("&quot;", "\""));
     var snoreStatsArray = JSON.parse(snoreStats.replaceAll("&quot;", "\""));
+    var graphDataArray = JSON.parse(graphData.replaceAll("&quot;", "\""));
     var nodeArray = JSON.parse(node.replaceAll("&quot;", "\""));
   </script>
 </head>
@@ -109,6 +111,40 @@
         </div>
       </div>
     </div>
+
+    <div class="row" style="min-height: 2.0em">
+      <h1 style="float:left; color:white; padding-left: 5%;">
+        Snoring Graph
+      </h1>
+      <dl id='time-selector' class="dropdown2 dropdown-style" style="float:right;  margin-left:5%;">
+        <dt>
+            <a href="#" id="current-time-setting"><span>All Time</span></a>
+          </dt>
+        <dd>
+          <ul>
+            <li><a href="#">Last Hour</a></li>
+            <li><a href="#">Last Day</a></li>
+            <li><a href="#">Last Week</a></li>
+            <li><a href="#">All Time</a></li>
+          </ul>
+        </dd>
+      </dl>
+      <dl id='device-selector' class="dropdown1 dropdown-style" style="float:right; margin-right:5%;">
+        <dt>
+            <a href="#"><span id="current-graph-device">Select Device</span></a>
+          </dt>
+        <dd>
+          <ul class='graph-device-group'>
+          </ul>
+        </dd>
+      </dl>
+
+    </div>
+    <div class="row" style="min-height: 500px">
+      <canvas id="data-chart"></canvas>
+    </div>
+
+
     <div class="row" style="min-height: 2.0em">
       <h1 style="float:left; color:white; padding-left: 5%;">
         Snoring DataTable
@@ -117,6 +153,7 @@
     <div class="row">
       <table id="snoring-table" class="hover">
         <thead>
+          <th class="text-align-left"></th>
           <th class="text-align-left"></th>
           <th class="text-align-left"></th>
           <th class="text-align-left"></th>
@@ -137,6 +174,7 @@
 
   <script type="text/javascript" src="/js/libraries/gauge.min.js"></script>
   <script type="text/javascript" src="/js/libraries/percircle.js"></script>
+  <script type="text/javascript" src="/js/common.js"></script>
   <script type="text/javascript" src="/js/snore.js"></script>
 </body>
 

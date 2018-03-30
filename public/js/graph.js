@@ -1,5 +1,51 @@
-const DEVICE_COOKIE_VALUE = 'currentDevice';
-var shouldAutoUpdate = true;
+window.onload = function() {
+	var socket = io.connect();
+
+	socket.on('homeDataUpdate', function(dataPoint) {
+		// Received data update from socket connection
+		updateAllDataArrays(dataPoint);
+		if(shouldAutoUpdate && dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE)) {
+			updateChart($('#current-setting')[0].text);
+		}
+	});
+
+	window.onbeforeunload = function(e) {
+	  socket.disconnect();
+	};
+
+	if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
+		Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
+			expires: 7
+		});
+	}
+
+	var ctx1 = document.getElementById("data-chart").getContext("2d");
+	buildChart(ctx1, buildChartData(dataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
+
+	$('#current-device').text(Cookies.get(DEVICE_COOKIE_VALUE));
+	updateChart($('#current-setting')[0].text);
+
+	for (var i = 0; i < nodeArray.length; i++) {
+		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
+		$input.appendTo($(".device-group"));
+	}
+
+	$(".dropdown dt a").click(function(e) {
+		$(".dropdown dd ul").toggle();
+		e.preventDefault();
+	});
+
+	$(".dropdown dd ul li a").click(function(e) {
+		var text = $(this).html();
+
+		$(".dropdown dt a span").html(text);
+		$(".dropdown dd ul").hide();
+
+		Cookies.set(DEVICE_COOKIE_VALUE, text);
+		updateChart($('#current-setting')[0].text);
+	});
+};
+
 
 function updateAllDataArrays(dataPoint) {
 	updateArrayWithDatapoint(lastDayDataArray, dataPoint);
@@ -29,8 +75,6 @@ function updateChart(text) {
 }
 
 function buildChartData(data, key) {
-	var timeFormat = 'dddd, MMMM Do YYYY, H:mm:ss';
-
 	var greenStatus = "rgb(48,179,45)";
 	var greenStatusBackground = "rgb(48,179,45, 0.0)";
 	var yellowStatus = "rgb(253,216,49)";
@@ -175,84 +219,4 @@ $(".dropdown1 dd ul li a").click(function() {
 	$(".dropdown1 dt a span").html(text);
 	$(".dropdown1 dd ul").hide();
 	updateChart(text);
-});
-
-$(document).bind('click', function(e) {
-	var $clicked = $(e.target);
-	if (!$clicked.parents().hasClass("dropdown"))
-		$(".dropdown dd ul").hide();
-
-	if (!$clicked.parents().hasClass("dropdown1"))
-		$(".dropdown1 dd ul").hide();
-});
-
-window.onload = function() {
-	var socket = io.connect();
-
-	socket.on('homeDataUpdate', function(dataPoint) {
-		// Received data update from socket connection
-		updateAllDataArrays(dataPoint);
-		if(shouldAutoUpdate && dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE)) {
-			updateChart($('#current-setting')[0].text);
-		}
-	});
-
-	window.onbeforeunload = function(e) {
-	  socket.disconnect();
-	};
-
-	var ctx1 = document.getElementById("data-chart").getContext("2d");
-	buildChart(ctx1, buildChartData(dataArray, "simNodeDevice"));
-	if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
-		Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
-			expires: 7
-		});
-	}
-	$('#current-device').text(Cookies.get(DEVICE_COOKIE_VALUE));
-	updateChart($('#current-setting')[0].text);
-
-	for (var i = 0; i < nodeArray.length; i++) {
-		var $input = $('<li><a href="#">' + nodeArray[i] + '</a></li>');
-		$input.appendTo($(".device-group"));
-	}
-
-	$(".dropdown dt a").click(function(e) {
-		$(".dropdown dd ul").toggle();
-		e.preventDefault();
-	});
-
-	$(".dropdown dd ul li a").click(function(e) {
-		var text = $(this).html();
-
-		$(".dropdown dt a span").html(text);
-		$(".dropdown dd ul").hide();
-
-		Cookies.set(DEVICE_COOKIE_VALUE, text);
-		updateChart($('#current-setting')[0].text);
-	});
-
-};
-
-$('.toggle').click(function(e) {
-  var toggle = this;
-
-  e.preventDefault();
-
-  $(toggle).toggleClass('toggle--on')
-         .toggleClass('toggle--off')
-         .addClass('toggle--moving');
-
- 	$(".toggle-label").toggleClass("blink-text");
-
-	if($(toggle).hasClass('toggle--on')) {
-		shouldAutoUpdate = true;
-		// $(toggle).addClass('blink');
-	} else {
-		shouldAutoUpdate = false;
-		// $(toggle).removeClass('blink');
-	}
-
-  setTimeout(function() {
-    $(toggle).removeClass('toggle--moving');
-  }, 200)
 });

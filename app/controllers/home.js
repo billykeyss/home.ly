@@ -108,11 +108,21 @@ router.get('/snore', (req, res, next) => {
 		var tableDataArray = [];
 		var countSnoreObject = {}
 
+		var chartDataObject = {};
+		var lastHourChartDataObject = {};
+		var lastDayChartDataObject = {};
+		var lastWeekChartDataObject = {};
+
 		var totalSnoreObject = {
 			countSnoreLastHour: 0,
 			countSnoreLastDay: 0,
 			countSnoreLastWeek: 0,
 			loudestSnore: 0
+		};
+
+		var emptyDataObject = {
+			labels: [],
+			decibels: []
 		};
 
 		for (var i in sortedDataArray) {
@@ -122,25 +132,54 @@ router.get('/snore', (req, res, next) => {
 				countSnoreLastWeek: 0,
 				loudestSnore: 0
 			}
+
+			chartDataObject[i] = _.cloneDeep(emptyDataObject);
+			lastHourChartDataObject[i] = _.cloneDeep(chartDataObject[i]);
+			lastWeekChartDataObject[i] = _.cloneDeep(lastHourChartDataObject[i]);
+			lastDayChartDataObject[i] = _.cloneDeep(lastWeekChartDataObject[i]);
+
 			sortedDataArray[i].forEach(function(arrayItem) {
-				if(arrayItem.decibels > countSnoreObject[i].loudestSnore) {
-					countSnoreObject[i].loudestSnore = arrayItem.decibels.toFixed(2);
+				arrayItem.decibel_array.forEach(function (decibel, index) {
+						chartDataObject[i].labels.push(dataUtils.convertUnixToMomentStringSnoreGraph(arrayItem.date_time + index * 0.5));
+						chartDataObject[i].decibels.push(decibel.toFixed(2));
+							if ((Date.now() / 1000) < ((arrayItem.date_time + 24 * 60 * 60))) {
+								lastDayChartDataObject[i].labels.push(dataUtils.convertUnixToMomentStringSnoreGraph(arrayItem.date_time + index * 0.5));
+								lastDayChartDataObject[i].decibels.push(decibel.toFixed(2));
+							}
+
+							if ((Date.now() / 1000) < (arrayItem.date_time + 7 * 24 * 60 * 60)) {
+								lastWeekChartDataObject[i].labels.push(dataUtils.convertUnixToMomentStringSnoreGraph(arrayItem.date_time + index * 0.5));
+								lastWeekChartDataObject[i].decibels.push(decibel.toFixed(2));
+							}
+
+							if ((Date.now() / 1000) < (arrayItem.date_time + 60 * 60)) {
+								lastHourChartDataObject[i].labels.push(dataUtils.convertUnixToMomentStringSnoreGraph(arrayItem.date_time + index * 0.5));
+								lastHourChartDataObject[i].decibels.push(decibel.toFixed(2));
+							}
+				});
+
+				if(arrayItem.max_decibels > countSnoreObject[i].loudestSnore) {
+					countSnoreObject[i].loudestSnore = arrayItem.max_decibels.toFixed(2);
 				}
-				if(arrayItem.decibels > totalSnoreObject.loudestSnore) {
-					totalSnoreObject.loudestSnore = arrayItem.decibels.toFixed(2);
+				if(arrayItem.max_decibels > totalSnoreObject.loudestSnore) {
+					totalSnoreObject.loudestSnore = arrayItem.max_decibels.toFixed(2);
 				}
-				tableDataArray.push([arrayItem.pi_id, dataUtils.convertUnixToMomentStringTable(arrayItem.date_time), arrayItem.decibels.toFixed(2)]);
-				if ((Date.now() / 1000) < ((arrayItem.date_time + 24 * 60 * 60))) {
-					countSnoreObject[i].countSnoreLastDay++;
-					totalSnoreObject.countSnoreLastDay++;
-				}
-				if ((Date.now() / 1000) < (arrayItem.date_time + 7 * 24 * 60 * 60)) {
-					countSnoreObject[i].countSnoreLastWeek++;
-					totalSnoreObject.countSnoreLastWeek++;
-				}
-				if ((Date.now() / 1000) < (arrayItem.date_time + 60 * 60)) {
-					countSnoreObject[i].countSnoreLastHour++;
-					totalSnoreObject.countSnoreLastHour++;
+
+				tableDataArray.push([arrayItem.pi_id, dataUtils.convertUnixToMomentStringTable(arrayItem.date_time), dataUtils.roundArrayTwoDecimal(arrayItem.decibel_array).toString(), arrayItem.max_decibels.toFixed(2)]);
+
+				if(arrayItem.max_decibels > 10) {
+					if ((Date.now() / 1000) < ((arrayItem.date_time + 24 * 60 * 60))) {
+						countSnoreObject[i].countSnoreLastDay++;
+						totalSnoreObject.countSnoreLastDay++;
+					}
+					if ((Date.now() / 1000) < (arrayItem.date_time + 7 * 24 * 60 * 60)) {
+						countSnoreObject[i].countSnoreLastWeek++;
+						totalSnoreObject.countSnoreLastWeek++;
+					}
+					if ((Date.now() / 1000) < (arrayItem.date_time + 60 * 60)) {
+						countSnoreObject[i].countSnoreLastHour++;
+						totalSnoreObject.countSnoreLastHour++;
+					}
 				}
 			});
 		}
@@ -151,10 +190,23 @@ router.get('/snore', (req, res, next) => {
 			data: JSON.stringify(sortedDataArray),
 			nodeArray: JSON.stringify(Object.keys(sortedDataArray)),
 			tableData: JSON.stringify(tableDataArray),
-			snoreStats: JSON.stringify(countSnoreObject)
+			snoreStats: JSON.stringify(countSnoreObject),
+			graphData: JSON.stringify([
+				chartDataObject,
+				lastHourChartDataObject,
+				lastDayChartDataObject,
+				lastWeekChartDataObject
+			])
 		});
 	});
 });
+
+
+
+
+
+
+
 
 router.get('/map', (req, res, next) => {
 	Data.getAllData().then(function(data) {

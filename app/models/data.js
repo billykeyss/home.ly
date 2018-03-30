@@ -154,13 +154,14 @@ module.exports = {
 	addSnoreDataDirectDB: function(data) {
 		if ((data.hasOwnProperty('pi_ID') && typeof data['pi_ID'] === 'string' && data['pi_ID'].length > 0) &&
 			(data.hasOwnProperty('date_time') && typeof data['date_time'] === 'number') &&
-			(data.hasOwnProperty('decibels') && typeof data['decibels'] === 'number')) {
+			(data.hasOwnProperty('decibel_array') && data['decibel_array'].constructor === Array)) {
 			var params = {
 				TableName: process.env.TABLE_NAME_SNORING,
 				Item: {
 					pi_id: data.pi_ID,
-					decibels: Number(data.decibels),
-					date_time: Number(data.date_time)
+					decibel_array: (data.decibel_array),
+					date_time: Number(data.date_time),
+					max_decibels: data.max_decibels
 				}
 			};
 			docClient.put(params, function(err, data) {

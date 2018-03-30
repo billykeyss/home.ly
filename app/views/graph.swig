@@ -104,6 +104,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <!-- Custom s file -->
+  <script type="text/javascript" src="/js/common.js"></script>
   <script type="text/javascript" src="/js/graph.js"></script>
 </body>
 
