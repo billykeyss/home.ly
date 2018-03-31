@@ -7,17 +7,13 @@ window.onload = function() {
     });
   }
 
-  if (Cookies.get(GRAPH_DEVICE_COOKIE_VALUE) === undefined) {
-    Cookies.set(GRAPH_DEVICE_COOKIE_VALUE, nodeArray[0], {
-      expires: 7
-    });
-  }
+  Cookies.set(GRAPH_DEVICE_COOKIE_VALUE, nodeArray[0], {
+    expires: 7
+  });
 
-  if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
-    Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
-      expires: 7
-    });
-  }
+  Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
+    expires: 7
+  });
 
   var socket = io.connect();
   socket.on('snoreDataUpdate', function(dataPoint) {

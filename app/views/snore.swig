@@ -116,7 +116,7 @@
       <h1 style="float:left; color:white; padding-left: 5%;">
         Snoring Graph
       </h1>
-      <dl id='time-selector' class="dropdown2 dropdown-style" style="float:right;  margin-left:5%;">
+      <dl id='time-selector' class="dropdown2 dropdown-style" style="float:right;  margin-right:5%;">
         <dt>
             <a href="#" id="current-time-setting"><span>All Time</span></a>
           </dt>
