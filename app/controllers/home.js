@@ -201,13 +201,6 @@ router.get('/snore', (req, res, next) => {
 	});
 });
 
-
-
-
-
-
-
-
 router.get('/map', (req, res, next) => {
 	Data.getAllData().then(function(data) {
 		var dataArray = data.Items;

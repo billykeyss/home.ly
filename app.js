@@ -40,6 +40,10 @@ client.open()
 					var data = message.body;
 					if (data.type == 'snore') {
 						data.max_decibels = dataUtils.getMaxValueFromArray(data.decibel_array);
+						if(data.hasOwnProperty('connected')) {
+							io.sockets.emit('snoreConnectionUpdate', data.connected);
+							return;
+						}
 						// Data.addSnoreDataDirectDB(data);
 					} else if (data.type == 'home') {
 						let dateTime = data.date_time;

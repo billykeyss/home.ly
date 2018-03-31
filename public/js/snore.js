@@ -18,14 +18,24 @@ window.onload = function() {
   var socket = io.connect();
   socket.on('snoreDataUpdate', function(dataPoint) {
     // Received data update from socket connection
+    $("#sliderSwitch").prop("checked", true);
+
+    updateChartData(dataPoint);
+    updateStats(dataPoint);
     if (shouldAutoUpdate) {
       if (dataPoint.pi_ID == Cookies.get(DEVICE_COOKIE_VALUE) || Cookies.get(DEVICE_COOKIE_VALUE) == "totalSnoreObject") {
         updateVisualStats();
       }
+      if(dataPoint.pi_ID == Cookies.get(GRAPH_DEVICE_COOKIE_VALUE)) {
+        updateChart(dataPoint);
+      }
     }
-    updateStats(dataPoint);
     updateDataTable(dataPoint);
-    updateChart(dataPoint);
+  });
+
+  socket.on('snoreConnectionUpdate', function(connected) {
+    console.log(connected);
+    $("#sliderSwitch").prop("checked", !connected);
   });
 
   var ctx1 = document.getElementById("data-chart").getContext("2d");
@@ -66,6 +76,8 @@ window.onload = function() {
 
   updateStats();
   updateVisualStats();
+  $("#sliderSwitch").prop("checked", false);
+
 };
 
 function updateDataTable(dataPoint) {
@@ -140,19 +152,6 @@ function updateVisualStats() {
   });
 }
 
-// function updateChart(text) {
-//   var ctx1 = document.getElementById("data-chart").getContext("2d");
-//   if (text.indexOf("Day") !== -1) {
-//     buildChart(ctx1, buildChartData(lastDayDataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
-//   } else if (text.indexOf("Week") !== -1) {
-//     buildChart(ctx1, buildChartData(lastWeekDataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
-//   } else if (text.indexOf("Month") !== -1) {
-//     buildChart(ctx1, buildChartData(lastMonthDataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
-//   } else if (text.indexOf("Time") !== -1) {
-//     buildChart(ctx1, buildChartData(dataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
-//   }
-// }
-
 function roundArrayTwoDecimal(array) {
   var x = 0;
   var len = array.length
@@ -222,7 +221,6 @@ function buildChartData(data, key) {
 }
 
 function updateChart(dataPoint) {
-  updateChartData(dataPoint);
   var ctx1 = document.getElementById("data-chart").getContext("2d");
   buildChart(ctx1, buildChartData(graphDataArray[TIME_SETTING], Cookies.get(GRAPH_DEVICE_COOKIE_VALUE)));
 }
@@ -254,19 +252,6 @@ function updateChartTimeChange(text) {
   	}
     buildChart(ctx1, buildChartData(graphDataArray[TIME_SETTING], Cookies.get(DEVICE_COOKIE_VALUE)));
 }
-
-// function updateChart(text) {
-// 	var ctx1 = document.getElementById("data-chart").getContext("2d");
-// 	if (text.indexOf("Day") !== -1) {
-// 		buildChart(ctx1, buildChartData(lastDayDataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
-// 	} else if (text.indexOf("Week") !== -1) {
-// 		buildChart(ctx1, buildChartData(lastWeekDataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
-// 	} else if (text.indexOf("Month") !== -1) {
-// 		buildChart(ctx1, buildChartData(lastMonthDataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
-// 	} else if (text.indexOf("Time") !== -1) {
-// 		buildChart(ctx1, buildChartData(dataArray, Cookies.get(DEVICE_COOKIE_VALUE)));
-// 	}
-// }
 
 $(".dropdown dt a").click(function(e) {
   $(".dropdown dd ul").toggle();

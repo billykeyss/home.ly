@@ -58,6 +58,14 @@
     </ul>
     <p class="toggle-label blink-text"> Live Tracking </p>
     <a href="#" class="toggle toggle--on"></a>
+    <p class="toggle-label"> Device Connectivity </p>
+    <div class="slider">
+      <input type="checkbox" name="slider" class="slider-checkbox" id="sliderSwitch">
+      <label class="slider-label" for="sliderSwitch">
+        <span class="slider-inner"></span>
+        <span class="slider-circle"></span>
+      </label>
+    </div>
   </aside>
   <div class="dashboard">
     <div class="row" style="min-height: 2.0em">

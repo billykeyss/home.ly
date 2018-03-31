@@ -135,3 +135,90 @@ ul {
   color: white;
   text-align: center;
 }
+
+.slider {
+  border: none;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 140px;
+  margin: 0 auto;
+  margin-top: 20px;
+  pointer-events: none;
+}
+
+.slider-checkbox {
+  display: none;
+}
+
+.slider-label {
+  border: 2px solid #666;
+  border-radius: 20px;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+}
+
+.slider-inner {
+  display: block;
+  margin-left: -100%;
+  -webkit-transition: margin 0.3s ease-in 0s;
+  transition: margin 0.3s ease-in 0s;
+  width: 200%;
+}
+
+.slider-inner:before,
+.slider-inner:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  float: left;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+  width: 50%;
+}
+
+.slider-inner:before {
+  background-color: rgb(240,62,62);
+  color: #fff;
+  content: "Disconnected";
+  padding-left: .75em;
+}
+
+.slider-inner:after {
+  background-color: #eee;
+  color: #666;
+  content: "Connected";
+  padding-right: .75em;
+  text-align: right;
+}
+
+.slider-circle {
+  background-color: #66bb6a;
+  border: 2px solid #666;
+  border-radius: 20px;
+  bottom: 0;
+  display: block;
+  margin: 5px;
+  position: absolute;
+  right: 91px;
+  top: 0;
+  -webkit-transition: all 0.3s ease-in 0s;
+  transition: all 0.3s ease-in 0s;
+  width: 20px;
+}
+
+.slider-checkbox:checked + .slider-label .slider-inner {
+  margin-left: 0;
+}
+
+.slider-checkbox:checked + .slider-label .slider-circle {
+  background-color: #eee;
+  right: 0;
+}
