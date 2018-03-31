@@ -1,8 +1,9 @@
 var TIME_SETTING = 0; //0: all time, 1: last hour, 2: last day, 3: last week
+const CONNECTED_STATE = "connectedState";
 
 window.onload = function() {
-  if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
-    Cookies.set(DEVICE_COOKIE_VALUE, "totalSnoreObject", {
+  if (Cookies.get(CONNECTED_STATE) === undefined) {
+    Cookies.set(CONNECTED_STATE, true, {
       expires: 7
     });
   }
@@ -34,6 +35,7 @@ window.onload = function() {
   });
 
   socket.on('snoreConnectionUpdate', function(connected) {
+    Cookies.set(CONNECTED_STATE, !connected);
     $("#sliderSwitch").prop("checked", !connected);
   });
 
@@ -75,8 +77,7 @@ window.onload = function() {
 
   updateStats();
   updateVisualStats();
-  $("#sliderSwitch").prop("checked", false);
-
+  $("#sliderSwitch").prop("checked", (Cookies.get(CONNECTED_STATE) == 'true'));
 };
 
 function updateDataTable(dataPoint) {
