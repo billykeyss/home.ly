@@ -34,7 +34,6 @@ window.onload = function() {
   });
 
   socket.on('snoreConnectionUpdate', function(connected) {
-    console.log(connected);
     $("#sliderSwitch").prop("checked", !connected);
   });
 
@@ -227,7 +226,6 @@ function updateChart(dataPoint) {
 
 function updateChartData(dataPoint) {
   dataPoint.decibel_array.forEach(function (decibel, index) {
-    console.log(dataPoint.date_time + index * 0.5)
     for(var j = 0; j < 4; j++) {
       graphDataArray[j][dataPoint.pi_ID].labels.push(convertUnixToMomentStringSnoreGraph(dataPoint.date_time + index * 0.5));
       graphDataArray[j][dataPoint.pi_ID].decibels.push(decibel)
