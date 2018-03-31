@@ -13,6 +13,12 @@ window.onload = function() {
     });
   }
 
+  if (Cookies.get(DEVICE_COOKIE_VALUE) === undefined) {
+    Cookies.set(DEVICE_COOKIE_VALUE, nodeArray[0], {
+      expires: 7
+    });
+  }
+
   var socket = io.connect();
   socket.on('snoreDataUpdate', function(dataPoint) {
     // Received data update from socket connection
