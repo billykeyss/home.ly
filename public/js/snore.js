@@ -187,7 +187,7 @@ function buildChart(ctx, chartData) {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            max: 50,
+            max: 100,
             min: 0,
             stepSize: 5
           },
