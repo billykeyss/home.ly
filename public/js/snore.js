@@ -195,7 +195,7 @@ function buildChart(ctx, chartData) {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            max: 100,
+            max: 60,
             min: 0,
             stepSize: 5
           },
@@ -215,7 +215,7 @@ function buildChartData(data, key) {
   var lineChartData = {
     labels: data[key].labels,
     datasets: [{
-      label: "Pressure",
+      label: "Decibels",
       borderColor: [
         "rgb(48,179,45)"
       ],
