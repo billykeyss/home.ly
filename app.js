@@ -39,11 +39,13 @@ client.open()
 				receiver.on('message', function(message) {
 					var data = message.body;
 					if (data.type == 'snore') {
-						data.max_decibels = dataUtils.getMaxValueFromArray(data.decibel_array);
 						if(data.hasOwnProperty('connected')) {
 							io.sockets.emit('snoreConnectionUpdate', data.connected);
-							return;
+							if(!data.connected) {
+								return;
+							};
 						}
+						data.max_decibels = dataUtils.getMaxValueFromArray(data.decibel_array);
 						// Data.addSnoreDataDirectDB(data);
 					} else if (data.type == 'home') {
 						let dateTime = data.date_time;
