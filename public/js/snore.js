@@ -19,7 +19,8 @@ window.onload = function() {
   var socket = io.connect();
   socket.on('snoreDataUpdate', function(dataPoint) {
     // Received data update from socket connection
-    $("#sliderSwitch").prop("checked", true);
+    Cookies.set(CONNECTED_STATE, false);
+    $("#sliderSwitch").prop("checked", false);
 
     updateChartData(dataPoint);
     updateStats(dataPoint);
