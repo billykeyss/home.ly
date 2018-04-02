@@ -179,7 +179,14 @@ function buildChart(ctx, chartData) {
           time: {
             format: timeFormat,
             // round: 'day'
-            tooltipFormat: 'll HH:mm:ss:SS'
+            tooltipFormat: 'll HH:mm:ss:SS',
+            displayFormats: {
+		           'day': 'MMM DD',
+		           'week': 'MMM DD',
+		           'month': 'MMM DD',
+		           'quarter': 'MMM DD',
+		           'year': 'MMM DD',
+		        }
           },
           scaleLabel: {
             display: true
